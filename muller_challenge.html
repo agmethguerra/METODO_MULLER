@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MÜLLER CHALLENGE — Descubre, calcula y conquista las raíces</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--bg:#090d18;--panel:#111a2b;--panel2:#151f34;--line:#25334d;--text:#edf3ff;--muted:#8c9bb5;--cyan:#55e3f2;--violet:#9b82ff;--pink:#ff75bd;--green:#69e6ad;--yellow:#ffd477}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#1b2250 0,transparent 32%),radial-gradient(ellipse at 0% 70%,#102c3d 0,transparent 28%),var(--bg);color:var(--text);font-family:Manrope, sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.sidebar{background:#0b1220dd;border-right:1px solid var(--line);padding:25px 16px;display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:12px;align-items:center;padding:0 10px}.brandmark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#07111c;font-weight:900;font-size:21px;box-shadow:0 0 28px #55e3f244}.brand b{letter-spacing:1.5px;font-size:14px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:1px;margin-top:3px}
+.nav-label{font-size:10px;color:#60718e;letter-spacing:1.8px;font-weight:800;padding:0 12px;margin-bottom:7px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#9eacc4;text-align:left;padding:12px;border-radius:11px;display:flex;align-items:center;gap:12px;font-size:13px;font-weight:700}.nav button:hover,.nav button.active{background:linear-gradient(90deg,#26355a,#1b2942);color:white}.nav button.active{box-shadow:inset 3px 0 var(--cyan)}.ico{width:20px;text-align:center;font-size:16px}.side-bottom{margin-top:auto;background:linear-gradient(145deg,#182849,#171b38);border:1px solid #34456a;border-radius:16px;padding:16px}.side-bottom small{color:var(--muted)}.side-bottom strong{display:block;font-size:24px;margin:5px 0}.progress{height:6px;background:#2b3852;border-radius:9px;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;width:35%;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:9px}
+main{padding:28px clamp(18px,4vw,55px) 60px;max-width:1500px;width:100%;margin:auto}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}.crumb{color:var(--muted);font-size:12px}.profile{display:flex;gap:10px;align-items:center;font-size:12px;color:#cbd6e9}.avatar{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:#29365b;border:1px solid #6574a2;color:var(--cyan);font-weight:800}
+.page{display:none;animation:fade .25s ease}.page.active{display:block}@keyframes fade{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}
+.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.hero{display:grid;grid-template-columns:1.5fr .8fr;gap:20px;align-items:stretch}.hero-main{padding:34px;border-radius:24px;border:1px solid #314266;background:linear-gradient(120deg,#172846ee,#191b3aee);position:relative;overflow:hidden}.hero-main:after{content:"√";position:absolute;right:5%;top:-55px;font-size:250px;color:#ffffff08;font-weight:800}.hero h1{font-size:clamp(34px,5vw,58px);line-height:1.02;margin:14px 0 12px;letter-spacing:-2px}.hero h1 span{background:linear-gradient(90deg,var(--cyan),#b29aff,var(--pink));-webkit-background-clip:text;color:transparent}.hero p{color:#b4c1d8;line-height:1.7;max-width:590px;font-size:14px}.btn{border:0;border-radius:11px;padding:12px 17px;font-weight:800;font-size:12px;color:#07111c;background:linear-gradient(90deg,var(--cyan),#a4a1ff);box-shadow:0 7px 22px #55e3f222}.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}.btn.secondary{background:#202d47;color:#dce8ff;border:1px solid #394c70;box-shadow:none}.btn.pink{background:linear-gradient(90deg,#ff83c4,#aa8cff)}.hero-side{background:linear-gradient(160deg,#171e37,#111a2b);border:1px solid var(--line);border-radius:24px;padding:24px;display:flex;flex-direction:column;justify-content:space-between}.orb{height:115px;width:115px;border-radius:50%;margin:0 auto 15px;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#b4faff,#716cff 52%,#282b68 72%);box-shadow:0 0 50px #8c82ff55;font-size:34px;color:#10172b;font-weight:900}.hero-side h3{text-align:center;margin:0}.hero-side p{text-align:center;color:var(--muted);font-size:12px;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:20px 0 28px}.stat,.card{background:linear-gradient(145deg,#141f33,#101827);border:1px solid var(--line);border-radius:17px;padding:18px}.stat{display:flex;gap:13px;align-items:center}.stat-icon{width:40px;height:40px;border-radius:12px;background:#23344e;display:grid;place-items:center;font-size:18px}.stat strong{font-size:21px;display:block}.stat small{color:var(--muted);font-size:10px}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:25px 0 14px}.section-head h2{font-size:20px;margin:0}.section-head p{color:var(--muted);font-size:12px;margin:5px 0 0}.modules{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.module{background:linear-gradient(145deg,#151f34,#101827);border:1px solid var(--line);border-radius:17px;padding:19px;transition:.2s;cursor:pointer}.module:hover{transform:translateY(-4px);border-color:#6877a5}.module .symbol{font-size:24px;margin-bottom:14px}.module h3{font-size:14px;margin:0 0 7px}.module p{font-size:11px;line-height:1.6;color:var(--muted);min-height:36px}.module a{font-size:11px;color:var(--cyan);font-weight:800}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card h3{margin:0 0 9px;font-size:15px}.muted{color:var(--muted);font-size:12px;line-height:1.7}.formula{background:#080f1d;border:1px solid #2d3d5b;padding:16px;border-radius:12px;text-align:center;font-family:'DM Mono',monospace;color:var(--cyan);font-size:14px;line-height:1.8;margin:12px 0}.step{display:flex;gap:12px;margin:14px 0}.stepnum{flex:0 0 28px;height:28px;border-radius:9px;background:#29365b;color:var(--cyan);display:grid;place-items:center;font-weight:800;font-size:12px}.step p{margin:2px 0;color:#b9c6dc;font-size:12px;line-height:1.6}
+input,select{background:#0a1220;border:1px solid #354563;border-radius:9px;color:var(--text);padding:11px 12px;outline:none;width:100%;font-family:'DM Mono',monospace;font-size:12px}input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #55e3f21a}.field{display:grid;gap:6px}.field label{font-size:11px;color:#a9b8d0;font-weight:700}.fields{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.field-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.result{background:#081321;border:1px solid #2b4562;border-radius:12px;padding:15px;margin-top:14px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.8;white-space:pre-wrap;max-height:260px;overflow:auto;color:#c8f8ee}.good{color:var(--green)}.warn{color:var(--yellow)}
+canvas{width:100%;height:270px;background:#091321;border:1px solid #293b58;border-radius:13px;display:block}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.pill{border:1px solid #344560;background:#111b2c;color:#aebdd3;padding:8px 12px;border-radius:99px;font-size:11px;font-weight:700}.pill.active{background:#26395b;border-color:var(--cyan);color:var(--cyan)}
+.quiz-option{display:block;width:100%;text-align:left;margin:8px 0;padding:13px;border:1px solid #344560;background:#0c1525;color:#dce6f7;border-radius:11px;font-size:12px}.quiz-option:hover{border-color:var(--cyan)}.quiz-option.correct{border-color:var(--green);background:#15342d}.quiz-option.wrong{border-color:#ff7897;background:#381d2b}
+.badge{display:inline-block;padding:5px 9px;border-radius:99px;background:#263451;color:var(--cyan);font-size:10px;font-weight:800}
+.game-board{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.game-tile{min-height:72px;border:1px solid #354766;background:#111d31;border-radius:12px;color:#dce8ff;padding:14px;font-size:12px;text-align:center}.game-tile.selected{border-color:var(--pink);background:#34213b}.game-tile.done{border-color:var(--green);opacity:.55}
+footer{text-align:center;color:#60718e;font-size:10px;margin-top:45px}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{height:auto;position:relative;padding:12px;gap:12px}.brand{padding:5px}.nav{display:flex;overflow:auto}.nav-label,.side-bottom{display:none}.nav button{white-space:nowrap;padding:10px}.hero{grid-template-columns:1fr}.hero-side{display:none}.modules{grid-template-columns:repeat(2,1fr)}main{padding:18px}.topbar{margin-bottom:18px}}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}.modules,.two{grid-template-columns:1fr}.fields,.field-grid{grid-template-columns:1fr}.hero-main{padding:23px}.hero h1{font-size:39px}.topbar{align-items:flex-start}.profile span{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+ <div class="brand"><div class="brandmark">μ</div><div><b>MÜLLER CHALLENGE</b><small>NUMERICAL LAB · LEVEL UP</small></div></div>
+ <div><div class="nav-label">PLATAFORMA</div><nav class="nav">
+ <button class="active" data-page="inicio"><span class="ico">⌂</span>Inicio</button>
+ <button data-page="teoria"><span class="ico">◈</span>Aprende</button>
+ <button data-page="laboratorio"><span class="ico">⌘</span>Laboratorio</button>
+ <button data-page="graficas"><span class="ico">∿</span>Visualizador</button>
+ <button data-page="juego"><span class="ico">♜</span>Juegos</button>
+ <button data-page="desafios"><span class="ico">⚡</span>Desafíos</button>
+ <button data-page="evaluacion"><span class="ico">✧</span>Evaluación</button>
+ </nav></div>
+ <div class="side-bottom"><small>PROGRESO DE APRENDIZAJE</small><strong id="sideXP">120 XP</strong><div class="progress"><span id="sideProgress"></span></div><small id="sideLevel">Nivel 1 · Explorador</small></div>
+</aside>
+<main>
+ <div class="topbar"><div class="crumb">AULA DIGITAL / <b id="crumb">INICIO</b></div><div class="profile"><span>Estudiante invitado</span><div class="avatar">E</div></div></div>
+
+ <section class="page active" id="inicio">
+  <div class="hero"><div class="hero-main"><div class="eyebrow">✦ TU MISIÓN COMIENZA AQUÍ</div><h1>Domina las raíces.<br><span>Desafía los límites.</span></h1><p>Explora el método de Müller paso a paso. Experimenta con funciones, observa cómo convergen las aproximaciones y demuestra lo que sabes superando retos matemáticos.</p><button class="btn" onclick="showPage('teoria')">Comenzar recorrido&nbsp; →</button></div>
+  <div class="hero-side"><div><div class="orb">μ</div><h3>El poder de la aproximación</h3><p>Una experiencia para pensar, probar, equivocarse y conquistar soluciones.</p></div><div style="display:flex;justify-content:space-between"><span class="badge">MODO APRENDIZAJE</span><span class="badge">v 1.0</span></div></div></div>
+  <div class="stats"><div class="stat"><div class="stat-icon">⚡</div><div><strong id="xp">120</strong><small>PUNTOS XP</small></div></div><div class="stat"><div class="stat-icon">🏆</div><div><strong id="completed">0</strong><small>RETOS COMPLETADOS</small></div></div><div class="stat"><div class="stat-icon">🧠</div><div><strong id="streak">0</strong><small>RESPUESTAS CORRECTAS</small></div></div><div class="stat"><div class="stat-icon">🎯</div><div><strong id="accuracy">—</strong><small>PRECISIÓN</small></div></div></div>
+  <div class="section-head"><div><h2>Tu ruta de aprendizaje</h2><p>Seis estaciones para convertirte en experto.</p></div><span class="badge">7 MÓDULOS</span></div>
+  <div class="modules">
+   <div class="module" onclick="showPage('teoria')"><div class="symbol">📘</div><h3>01 · Fundamentos</h3><p>Conoce el método, su origen y cuándo utilizarlo.</p><a>Explorar módulo →</a></div>
+   <div class="module" onclick="showPage('laboratorio')"><div class="symbol">🧪</div><h3>02 · Laboratorio</h3><p>Calcula raíces reales y complejas con tus propios datos.</p><a>Entrar al laboratorio →</a></div>
+   <div class="module" onclick="showPage('graficas')"><div class="symbol">📈</div><h3>03 · Visualizador</h3><p>Observa la función, las aproximaciones y la convergencia.</p><a>Ver gráficas →</a></div>
+   <div class="module" onclick="showPage('juego')"><div class="symbol">🎮</div><h3>04 · Juego de pasos</h3><p>Ordena el procedimiento y desbloquea puntos.</p><a>Jugar ahora →</a></div>
+   <div class="module" onclick="showPage('desafios')"><div class="symbol">🚀</div><h3>05 · Desafíos</h3><p>Resuelve misiones con diferentes niveles de dificultad.</p><a>Aceptar desafío →</a></div>
+   <div class="module" onclick="showPage('evaluacion')"><div class="symbol">🧩</div><h3>06 · Evaluación</h3><p>Pon a prueba tu comprensión con preguntas rápidas.</p><a>Evaluarme →</a></div>
+  </div>
+ </section>
+
+ <section class="page" id="teoria">
+  <div class="eyebrow">MÓDULO 01 · APRENDE</div><h1 style="font-size:34px;margin:9px 0">El método de Müller</h1><p class="muted">Un método numérico iterativo para encontrar raíces de una función, aproximando localmente la curva mediante una parábola.</p>
+  <div class="two" style="margin-top:20px">
+   <div class="card"><h3>¿En qué consiste?</h3><p class="muted">El método utiliza tres aproximaciones iniciales, \(x_0, x_1, x_2\). Con ellas construye una parábola que interpola los puntos de la función. Luego calcula una raíz de esa parábola y la utiliza como nueva aproximación. El proceso se repite hasta alcanzar la tolerancia deseada.</p><div class="formula">f(x) ≈ ax² + bx + c</div><p class="muted">A diferencia de métodos que trabajan solo con valores reales, Müller puede producir aproximaciones complejas cuando la función y los datos lo permiten.</p></div>
+   <div class="card"><h3>¿Por qué es útil?</h3><div class="step"><span class="stepnum">01</span><p><b>Flexibilidad:</b> no requiere calcular derivadas de la función.</p></div><div class="step"><span class="stepnum">02</span><p><b>Interpolación:</b> utiliza tres puntos para construir una parábola local.</p></div><div class="step"><span class="stepnum">03</span><p><b>Raíces complejas:</b> puede aproximar soluciones no reales.</p></div><div class="step"><span class="stepnum">04</span><p><b>Iterativo:</b> mejora la aproximación en cada paso, si converge.</p></div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>La fórmula central, paso a paso</h3><p class="muted">A partir de tres aproximaciones consecutivas, definimos:</p><div class="formula">h₁ = x₁ − x₀ &nbsp;&nbsp;&nbsp; h₂ = x₂ − x₁<br>δ₁ = [f(x₁) − f(x₀)] / h₁<br>δ₂ = [f(x₂) − f(x₁)] / h₂<br>d = (δ₂ − δ₁) / (h₂ + h₁)</div><p class="muted">Los coeficientes de la parábola expresados alrededor de x₂ son:</p><div class="formula">a = (d − δ₂) / (h₁ + h₂)<br>b = δ₂ + h₂d<br>c = f(x₂)</div><p class="muted">El siguiente desplazamiento se calcula usando la raíz cuadrática con el denominador de mayor magnitud para reducir cancelación numérica:</p><div class="formula">x₃ = x₂ − 2c / (b ± √(b² − 4ac))</div><p class="muted">Se elige el signo que produzca el denominador de mayor magnitud. Después se actualizan los tres puntos y se repite el proceso.</p></div>
+  <div class="two" style="margin-top:16px"><div class="card"><h3>Condiciones de parada</h3><ul class="muted"><li>El cambio entre iteraciones es menor que la tolerancia.</li><li>El residuo |f(x)| es suficientemente pequeño.</li><li>Se alcanza el máximo de iteraciones.</li><li>Debe detectarse un denominador nulo o casi nulo.</li></ul></div><div class="card"><h3>Ejemplo guiado</h3><p class="muted">Para f(x) = x³ − 2x − 5, una raíz real está cerca de 2.09455. Si se inicia con x₀ = 1, x₁ = 2 y x₂ = 3, Müller construye sucesivas parábolas locales para acercarse a esa raíz.</p><button class="btn secondary" onclick="loadExample()">Probar ejemplo en laboratorio →</button></div></div>
+ </section>
+
+ <section class="page" id="laboratorio">
+  <div class="eyebrow">MÓDULO 02 · EXPERIMENTA</div><h1 style="font-size:34px;margin:9px 0">Laboratorio de cálculo</h1><p class="muted">Modifica los coeficientes y las aproximaciones iniciales. El laboratorio trabaja con polinomios cúbicos o de menor grado.</p>
+  <div class="two" style="margin-top:18px;align-items:start">
+   <div class="card"><h3>01 / Define tu función</h3><p class="muted">f(x) = Ax³ + Bx² + Cx + D</p><div class="fields">
+    <div class="field"><label>A · x³</label><input id="A" value="1" type="number" step="any"></div><div class="field"><label>B · x²</label><input id="B" value="0" type="number" step="any"></div><div class="field"><label>C · x</label><input id="C" value="-2" type="number" step="any"></div>
+   </div><div class="field" style="margin-top:10px"><label>D · Término independiente</label><input id="D" value="-5" type="number" step="any"></div>
+   <h3 style="margin-top:22px">02 / Aproximaciones iniciales</h3><div class="fields"><div class="field"><label>x₀</label><input id="x0" value="1" type="number" step="any"></div><div class="field"><label>x₁</label><input id="x1" value="2" type="number" step="any"></div><div class="field"><label>x₂</label><input id="x2" value="3" type="number" step="any"></div></div>
+   <div class="field-grid" style="margin-top:12px"><div class="field"><label>Tolerancia</label><input id="tol" value="0.000001" type="number" step="any"></div><div class="field"><label>Máx. iteraciones</label><input id="maxit" value="50" type="number" min="1" max="200"></div></div>
+   <div style="display:flex;gap:9px;margin-top:17px;flex-wrap:wrap"><button class="btn" onclick="calculate()">▶ Ejecutar Müller</button><button class="btn secondary" onclick="resetLab()">Restablecer</button></div>
+   </div>
+   <div class="card"><h3>03 / Resultado de la misión</h3><div id="labStatus" class="badge">ESPERANDO CÁLCULO</div><div id="labResult" class="result">Configura tu función y presiona “Ejecutar Müller” para iniciar la simulación.</div><div style="margin-top:15px"><h3>Historial de iteraciones</h3><div style="overflow:auto;max-height:240px"><table id="iterTable" style="width:100%;border-collapse:collapse;font:11px 'DM Mono';color:#b9c9df"><tr><td style="padding:8px;border-bottom:1px solid #30405b">Aún no hay datos.</td></tr></table></div></div></div>
+  </div>
+ </section>
+
+ <section class="page" id="graficas">
+  <div class="eyebrow">MÓDULO 03 · VISUALIZA</div><h1 style="font-size:34px;margin:9px 0">Observa la convergencia</h1><p class="muted">La gráfica muestra la curva de la función y la raíz aproximada encontrada en el laboratorio.</p>
+  <div class="card" style="margin-top:18px"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><h3>Plano cartesiano · f(x)</h3><span class="badge" id="graphLabel">EJEMPLO INICIAL</span></div><canvas id="plot" width="900" height="360"></canvas><p class="muted" id="graphInfo">Ejecuta el laboratorio para actualizar la visualización con tus datos.</p></div>
+  <div class="two" style="margin-top:15px"><div class="card"><h3>¿Qué debes observar?</h3><p class="muted">La intersección con el eje horizontal representa una raíz real. Müller no sigue necesariamente una línea recta hacia ella: construye parábolas sucesivas a partir de los puntos disponibles.</p></div><div class="card"><h3>Lectura numérica</h3><div class="formula">Residuo = |f(x aproximado)|</div><p class="muted">Un residuo pequeño indica que la aproximación satisface la ecuación con un error absoluto pequeño. No garantiza por sí solo buena precisión relativa en todos los casos.</p></div></div>
+ </section>
+
+ <section class="page" id="juego">
+  <div class="eyebrow">MÓDULO 04 · JUEGA</div><h1 style="font-size:34px;margin:9px 0">Arma el algoritmo</h1><p class="muted">Selecciona las tarjetas en el orden correcto para reconstruir el procedimiento del método de Müller.</p>
+  <div class="card" style="margin-top:18px"><div style="display:flex;justify-content:space-between;align-items:center"><h3>Desafío: ordena los pasos</h3><span class="badge">+50 XP</span></div><p class="muted">Toca cada paso según el orden en que debería ejecutarse.</p><div class="game-board" id="gameBoard"></div><div style="display:flex;gap:9px;margin-top:15px;align-items:center;flex-wrap:wrap"><button class="btn secondary" onclick="resetGame()">Reiniciar juego</button><span class="muted" id="gameFeedback">Paso 0 de 5</span></div></div>
+ </section>
+
+ <section class="page" id="desafios">
+  <div class="eyebrow">MÓDULO 05 · SUPERA EL RETO</div><h1 style="font-size:34px;margin:9px 0">Desafíos académicos</h1><p class="muted">Resuelve misiones basadas en situaciones frecuentes del análisis numérico.</p>
+  <div class="modules" style="margin-top:18px">
+   <div class="module"><div class="symbol">🟢</div><span class="badge">NIVEL 1 · BÁSICO</span><h3>Primera aproximación</h3><p>Encuentra una raíz de x³ − 2x − 5 con los valores iniciales del laboratorio.</p><button class="btn secondary" onclick="loadExample();showPage('laboratorio')">Iniciar reto</button></div>
+   <div class="module"><div class="symbol">🟣</div><span class="badge">NIVEL 2 · INTERMEDIO</span><h3>La raíz escondida</h3><p>Experimenta con x³ + x² − 1. Usa tres valores iniciales cercanos a la raíz positiva.</p><button class="btn secondary" onclick="setPoly(1,1,0,-1,.2,.7,1);showPage('laboratorio')">Cargar misión</button></div>
+   <div class="module"><div class="symbol">🔥</div><span class="badge">NIVEL 3 · AVANZADO</span><h3>Territorio complejo</h3><p>Investiga x² + 1. Comprueba cómo el discriminante permite obtener aproximaciones complejas.</p><button class="btn secondary" onclick="setPoly(0,1,0,1,-1,0,1);showPage('laboratorio')">Cargar misión</button></div>
+  </div>
+ </section>
+
+ <section class="page" id="evaluacion">
+  <div class="eyebrow">MÓDULO 06 · DEMUESTRA LO QUE SABES</div><h1 style="font-size:34px;margin:9px 0">Evaluación de conocimientos</h1><p class="muted">Cinco preguntas para comprobar tu dominio del método. Cada respuesta correcta suma 20 XP.</p>
+  <div class="card" style="margin-top:18px;max-width:760px"><div style="display:flex;justify-content:space-between"><span class="badge" id="qProgress">PREGUNTA 1 DE 5</span><span class="muted" id="qScore">Puntaje: 0</span></div><div class="progress"><span id="qBar" style="width:20%"></span></div><h3 id="question" style="font-size:18px;margin:22px 0 15px"></h3><div id="options"></div><p id="qFeedback" class="muted"></p><button class="btn" id="nextQ" style="display:none" onclick="nextQuestion()">Siguiente pregunta →</button><button class="btn secondary" id="restartQ" style="display:none" onclick="startQuiz()">Volver a intentar</button></div>
+ </section>
+ <footer>MÜLLER CHALLENGE · Aprende haciendo · Herramienta educativa de métodos numéricos</footer>
+</main>
+</div>
+<script>
+const pages=['inicio','teoria','laboratorio','graficas','juego','desafios','evaluacion'];
+let xp=120,completed=0,correct=0,answered=0,lastData=null,quizIndex=0,quizScore=0,quizDone=false,gameStep=0;
+function showPage(id){pages.forEach(p=>document.getElementById(p).classList.toggle('active',p===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));document.getElementById('crumb').textContent=id.toUpperCase();if(id==='graficas')drawGraph();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function updateStats(){document.getElementById('xp').textContent=xp;document.getElementById('sideXP').textContent=xp+' XP';document.getElementById('completed').textContent=completed;document.getElementById('streak').textContent=correct;document.getElementById('accuracy').textContent=answered?Math.round(correct/answered*100)+'%':'—';document.getElementById('sideProgress').style.width=Math.min(100,xp%300/3)+'%';document.getElementById('sideLevel').textContent=xp>=400?'Nivel 3 · Maestro':xp>=200?'Nivel 2 · Analista':'Nivel 1 · Explorador'}
+function addXP(n){xp+=n;updateStats()}
+function poly(x,p){return ((p.A*x+p.B)*x+p.C)*x+p.D}
+function fmt(x){if(typeof x==='object'&&x!==null)return `${x.re.toFixed(9)} ${x.im<0?'-':'+'} ${Math.abs(x.im).toFixed(9)}i`;return Number(x).toPrecision(11)}
+function calculate(){
+ const p={A:+A.value,B:+B.value,C:+C.value,D:+D.value};let xs=[+x0.value,+x1.value,+x2.value],tol=+document.getElementById('tol').value,max=Math.min(200,Math.max(1,+maxit.value));
+ if(!Object.values(p).every(Number.isFinite)||!xs.every(Number.isFinite)||!Number.isFinite(tol)||tol<=0){alert('Revisa los valores ingresados y la tolerancia.');return}
+ if(Math.abs(xs[1]-xs[0])<1e-14||Math.abs(xs[2]-xs[1])<1e-14){alert('Las tres aproximaciones deben ser distintas y consecutivas diferentes.');return}
+ let rows=[],status='max',root=null,reason='';
+ for(let i=0;i<max;i++){
+  let [x0v,x1v,x2v]=xs, f0=poly(x0v,p),f1=poly(x1v,p),f2=poly(x2v,p);
+  let h1=x1v-x0v,h2=x2v-x1v,d1=(f1-f0)/h1,d2=(f2-f1)/h2,d=(d2-d1)/(h1+h2);
+  let a=(d-d2)/(h1+h2),b=d2+h2*d,c=f2,disc=b*b-4*a*c;
+  let sqrt=disc>=0?Math.sqrt(disc):{re:0,im:Math.sqrt(-disc)};
+  let den1=typeof sqrt==='number'?b+sqrt:{re:b,im:sqrt.im},den2=typeof sqrt==='number'?b-sqrt:{re:b,im:-sqrt.im};
+  let mag=z=>typeof z==='number'?Math.abs(z):Math.hypot(z.re,z.im);
+  let den=mag(den1)>=mag(den2)?den1:den2;
+  let delta;
+  if(typeof den==='number'){if(Math.abs(den)<1e-14){status='fail';reason='Denominador casi nulo. Prueba otros valores iniciales.';break}delta=2*c/den}
+  else{let norm=den.re*den.re+den.im*den.im;if(norm<1e-28){status='fail';reason='Denominador complejo casi nulo.';break}let z={re:2*c*den.re/norm,im:-2*c*den.im/norm};delta=z}
+  let next=typeof delta==='number'?x2v-delta:{re:x2v-delta.re,im:-delta.im};
+  rows.push({i:i+1,x:x2v,fx:f2,next,err:typeof next==='number'?Math.abs(next-x2v):Math.hypot(next.re-x2v,next.im)});
+  if(typeof next!=='number'){root=next;status='complex';reason='Se obtuvo una aproximación compleja. La función real se evalúa aquí sobre los reales; el residuo complejo requiere evaluación compleja.';break}
+  root=next;
+  if(Math.abs(next-x2v)<tol || Math.abs(poly(next,p))<tol){status='ok';reason='Criterio de parada alcanzado.';break}
+  xs=[x1v,x2v,next];
+ }
+ lastData={p,rows,root,status};
+ let label=status==='ok'?'CONVERGENCIA ALCANZADA':status==='complex'?'RAÍZ COMPLEJA DETECTADA':status==='fail'?'CÁLCULO INTERRUMPIDO':'MÁXIMO DE ITERACIONES';
+ document.getElementById('labStatus').textContent=label;
+ document.getElementById('labResult').textContent=reason+'\n\nAproximación: '+(root===null?'No disponible':fmt(root))+'\nIteraciones realizadas: '+rows.length+(typeof root==='number'?'\nf(x) = '+poly(root,p):'');
+ document.getElementById('iterTable').innerHTML='<tr style="color:#55e3f2"><th style="padding:8px;text-align:left">n</th><th style="text-align:left">xₙ</th><th style="text-align:left">f(xₙ)</th><th style="text-align:left">Error</th></tr>'+rows.map(r=>`<tr><td style="padding:7px;border-bottom:1px solid #27364e">${r.i}</td><td>${r.x.toPrecision(8)}</td><td>${r.fx.toExponential(3)}</td><td>${r.err.toExponential(2)}</td></tr>`).join('');
+ document.getElementById('graphLabel').textContent=label;document.getElementById('graphInfo').textContent='Función actual: '+p.A+'x³ + '+p.B+'x² + '+p.C+'x + '+p.D+' · Raíz aproximada: '+(root===null?'No disponible':fmt(root));drawGraph();
+ if(status==='ok'){completed++;addXP(25)}else if(status==='complex'){completed++;addXP(15)}
+}
+function loadExample(){setPoly(1,0,-2,-5,1,2,3)}
+function setPoly(a,b,c,d,v0,v1,v2){A.value=a;B.value=b;C.value=c;D.value=d;x0.value=v0;x1.value=v1;x2.value=v2;tol.value='0.000001';maxit.value=50}
+function resetLab(){setPoly(1,0,-2,-5,1,2,3);document.getElementById('labStatus').textContent='ESPERANDO CÁLCULO';document.getElementById('labResult').textContent='Configura tu función y presiona “Ejecutar Müller” para iniciar la simulación.';document.getElementById('iterTable').innerHTML='<tr><td style="padding:8px">Aún no hay datos.</td></tr>';lastData=null;drawGraph()}
+function drawGraph(){
+ let cv=document.getElementById('plot');if(!cv)return;let ctx=cv.getContext('2d'),w=cv.width,h=cv.height;ctx.clearRect(0,0,w,h);
+ let p=lastData?lastData.p:{A:1,B:0,C:-2,D:-5},xMin=-3,xMax=4,vals=[];for(let i=0;i<=300;i++){let x=xMin+(xMax-xMin)*i/300;vals.push(poly(x,p))}
+ let yMin=Math.min(-8,...vals),yMax=Math.max(8,...vals);if(yMax-yMin<1)yMax=yMin+1;
+ let X=x=>((x-xMin)/(xMax-xMin))*w,Y=y=>h-((y-yMin)/(yMax-yMin))*h;
+ ctx.strokeStyle='#25344e';ctx.lineWidth=1;for(let i=0;i<=10;i++){let x=i*w/10;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let i=0;i<=8;i++){let y=i*h/8;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+ ctx.strokeStyle='#8090aa';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(0,Y(0));ctx.lineTo(w,Y(0));ctx.moveTo(X(0),0);ctx.lineTo(X(0),h);ctx.stroke();
+ ctx.strokeStyle='#58e2ef';ctx.lineWidth=3;ctx.beginPath();vals.forEach((v,i)=>{let x=xMin+(xMax-xMin)*i/300;i?ctx.lineTo(X(x),Y(v)):ctx.moveTo(X(x),Y(v))});ctx.stroke();
+ if(lastData&&typeof lastData.root==='number'&&lastData.root>=xMin&&lastData.root<=xMax){let xx=X(lastData.root),yy=Y(0);ctx.fillStyle='#ff78bf';ctx.beginPath();ctx.arc(xx,yy,7,0,Math.PI*2);ctx.fill();ctx.fillStyle='#ffacd6';ctx.font='14px Manrope';ctx.fillText('raíz ≈ '+lastData.root.toFixed(5),Math.min(w-180,xx+10),Math.max(18,yy-13))}
+ ctx.fillStyle='#8192ad';ctx.font='12px DM Mono';ctx.fillText('x',w-18,Y(0)-8);ctx.fillText('f(x)',X(0)+8,15);
+}
+const gameSteps=['Elegir tres aproximaciones iniciales','Evaluar la función en los tres puntos','Construir la parábola interpolante','Calcular una raíz de la parábola','Actualizar puntos y comprobar tolerancia'];
+let shuffled=[];
+function resetGame(){gameStep=0;shuffled=[...gameSteps].sort(()=>Math.random()-.5);renderGame();document.getElementById('gameFeedback').textContent='Paso 0 de 5'}
+function renderGame(){let b=document.getElementById('gameBoard');b.innerHTML='';shuffled.forEach((s,i)=>{let btn=document.createElement('button');btn.className='game-tile';btn.textContent=s;btn.onclick=()=>pickStep(i,btn);b.appendChild(btn)})}
+function pickStep(i,btn){if(btn.classList.contains('done'))return;let expected=gameSteps[gameStep];if(shuffled[i]===expected){btn.classList.add('done');btn.textContent='✓ '+btn.textContent;gameStep++;document.getElementById('gameFeedback').textContent=`¡Correcto! Paso ${gameStep} de 5`;if(gameStep===5){document.getElementById('gameFeedback').textContent='🏆 ¡Misión completada! +50 XP';completed++;addXP(50)}}else{btn.classList.add('selected');document.getElementById('gameFeedback').textContent='Aún no. Piensa qué necesita el método primero.';answered++}}
+const questions=[
+{q:'¿Cuántas aproximaciones iniciales utiliza el método de Müller?',o:['Una','Dos','Tres','Cuatro'],a:2,e:'Müller utiliza tres aproximaciones iniciales para construir una parábola interpolante.'},
+{q:'¿Qué curva se construye localmente a partir de los tres puntos?',o:['Una recta','Una parábola','Una circunferencia','Una exponencial'],a:1,e:'La interpolación cuadrática permite construir una parábola que aproxima la función.'},
+{q:'¿El método de Müller necesita calcular la derivada de f(x)?',o:['Sí, siempre','No','Solo si la función es cúbica','Solo para raíces complejas'],a:1,e:'No necesita derivadas explícitas; utiliza valores de la función en tres puntos.'},
+{q:'¿Qué puede ocurrir si el discriminante es negativo?',o:['No existe solución posible','Puede aparecer una raíz compleja','La función se vuelve lineal','La tolerancia cambia'],a:1,e:'La fórmula cuadrática puede producir una aproximación compleja.'},
+{q:'¿Qué indica un residuo |f(xₙ)| pequeño?',o:['Que la aproximación satisface la ecuación aproximadamente','Que la función no tiene raíces','Que hubo división por cero','Que siempre es la raíz exacta'],a:0,e:'Un residuo pequeño indica que f(xₙ) está cerca de cero, aunque no garantiza por sí solo precisión relativa.'}
+];
+function startQuiz(){quizIndex=0;quizScore=0;quizDone=false;document.getElementById('restartQ').style.display='none';renderQuestion()}
+function renderQuestion(){let q=questions[quizIndex];document.getElementById('qProgress').textContent=`PREGUNTA ${quizIndex+1} DE ${questions.length}`;document.getElementById('qScore').textContent='Puntaje: '+quizScore;document.getElementById('qBar').style.width=((quizIndex+1)/questions.length*100)+'%';document.getElementById('question').textContent=q.q;document.getElementById('qFeedback').textContent='';document.getElementById('nextQ').style.display='none';let o=document.getElementById('options');o.innerHTML='';q.o.forEach((v,i)=>{let b=document.createElement('button');b.className='quiz-option';b.textContent=v;b.onclick=()=>answer(i,b);o.appendChild(b)})}
+function answer(i,btn){if(quizDone)return;quizDone=true;answered++;let q=questions[quizIndex];[...document.querySelectorAll('.quiz-option')].forEach((b,j)=>{b.disabled=true;if(j===q.a)b.classList.add('correct')});if(i===q.a){quizScore+=20;correct++;addXP(20);document.getElementById('qFeedback').textContent='✓ ¡Excelente! '+q.e}else{btn.classList.add('wrong');document.getElementById('qFeedback').textContent='✦ Repasemos: '+q.e}document.getElementById('qScore').textContent='Puntaje: '+quizScore;document.getElementById('nextQ').style.display='inline-block';document.getElementById('nextQ').textContent=quizIndex===questions.length-1?'Ver resultado':'Siguiente pregunta →';updateStats()}
+function nextQuestion(){if(quizIndex<questions.length-1){quizIndex++;quizDone=false;renderQuestion()}else{document.getElementById('question').textContent='Evaluación finalizada';document.getElementById('options').innerHTML=`<div class="formula">${quizScore} / 100 puntos</div><p class="muted">${quizScore>=80?'¡Dominio destacado!':quizScore>=60?'Buen trabajo. Refuerza los conceptos que fallaste.':'Sigue practicando. ¡Cada intento te acerca a la meta!'}</p>`;document.getElementById('qFeedback').textContent='Has completado la evaluación.';document.getElementById('nextQ').style.display='none';document.getElementById('restartQ').style.display='inline-block';completed++;updateStats()}}
+resetGame();startQuiz();updateStats();drawGraph();
+</script>
+</body></html>
