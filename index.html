@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MÜLLER CHALLENGE: plataforma educativa interactiva sobre el método numérico de Müller">
+<title>MÜLLER CHALLENGE · Descubre, calcula y conquista las raíces</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css"><link rel="stylesheet" href="css/animations.css"><link rel="stylesheet" href="css/responsive.css">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea']}};</script>
+</head>
+<body>
+<div class="app-shell">
+  <!-- ============ BARRA LATERAL ============ -->
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#inicio" data-goto="inicio"><span class="brand-mark">M</span><span>MÜLLER CHALLENGE<small>LABORATORIO MATEMÁTICO</small></span></a>
+    <div class="side-label">NAVEGACIÓN</div>
+    <nav id="mainNav" aria-label="Secciones">
+      <a class="nav-item" href="#inicio" data-section="inicio"><i data-lucide="house"></i>Inicio<span class="num">01</span></a>
+      <a class="nav-item" href="#aprende" data-section="aprende"><i data-lucide="book-open"></i>Aprende Müller<span class="num">02</span></a>
+      <a class="nav-item" href="#laboratorio" data-section="laboratorio"><i data-lucide="flask-conical"></i>Laboratorio<span class="num">03</span></a>
+      <a class="nav-item" href="#juegos" data-section="juegos"><i data-lucide="gamepad-2"></i>Zona de juegos<span class="num">04</span></a>
+      <a class="nav-item" href="#desafios" data-section="desafios"><i data-lucide="swords"></i>Desafíos<span class="num">05</span></a>
+      <a class="nav-item" href="#evaluacion" data-section="evaluacion"><i data-lucide="clipboard-check"></i>Evaluación final<span class="num">06</span></a>
+      <a class="nav-item" href="#creditos" data-section="creditos"><i data-lucide="users"></i>Créditos<span class="num">07</span></a>
+    </nav>
+    <div class="side-foot">PUNTUACIÓN ACUMULADA<b id="sideScore">0 pts</b>Máximo posible: 800<br><span id="sideActivities">0 de 10 actividades</span></div>
+  </aside>
+
+  <div class="main-wrap">
+    <!-- ============ BARRA SUPERIOR ============ -->
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú"><i data-lucide="menu"></i></button>
+      <div class="top-title">MÜLLER CHALLENGE <span>· Descubre, calcula y conquista las raíces</span></div>
+      <div class="crumb"><i data-lucide="chevron-right"></i><span id="currentSection">Inicio</span></div>
+      <div class="hud">
+        <div class="hud-progress">PROGRESO · <b id="hudProgressText">0%</b><div class="bar"><span id="hudProgressBar"></span></div></div>
+        <div class="hud-score">PUNTOS<b id="hudScore">0 / 800</b></div>
+        <a class="btn-x alt" href="#inicio" data-goto="inicio" id="homeBtn"><i data-lucide="house"></i>Inicio</a>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- ============ 1. INICIO ============ -->
+      <section class="seccion" id="inicio">
+        <div class="hero">
+          <div class="hero-bg" aria-hidden="true">
+            <span style="left:6%;top:12%;font-size:70px">∑</span><span style="left:78%;top:8%;font-size:90px;animation-delay:-3s">√</span>
+            <span style="left:60%;top:62%;font-size:60px;animation-delay:-6s">f(x)</span><span style="left:20%;top:68%;font-size:80px;animation-delay:-9s">π</span>
+            <span style="left:88%;top:55%;font-size:64px;animation-delay:-2s">x²</span><span style="left:42%;top:6%;font-size:46px;animation-delay:-7s">∫</span>
+          </div>
+          <div class="hero-in">
+            <div class="eyebrow">Plataforma educativa · Métodos numéricos</div>
+            <h1 class="logo-t" style="margin-top:12px">MÜLLER<br><span>CHALLENGE</span></h1>
+            <p class="sub">Descubre, calcula y conquista las raíces.</p>
+            <p class="muted">Aprende el método de Müller con teoría, ejemplos resueltos, un laboratorio de cálculo, juegos didácticos, desafíos y una evaluación final. Aquí se aprende participando.</p>
+            <div class="hero-actions">
+              <a class="btn-x" href="#aprende" data-goto="aprende"><i data-lucide="rocket"></i>COMENZAR EXPERIENCIA</a>
+              <button class="btn-x alt" data-toggle="#como-funciona"><i data-lucide="circle-help"></i>¿CÓMO FUNCIONA?</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-x mision"><div class="eyebrow">TU MISIÓN</div>
+          <p style="margin:8px 0 0;font-size:17px">Tu misión es dominar el método de Müller, comprender cómo encuentra raíces de funciones no lineales y superar diferentes retos matemáticos para convertirte en un experto en aproximación numérica.</p></div>
+        <div class="card-x" style="margin-top:18px" id="progress-panel"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px"><div class="eyebrow">TU PROGRESO</div><button type="button" class="btn-x alt" id="resetProgressBtn"><i data-lucide="rotate-ccw"></i>Reiniciar progreso</button></div><ul class="points-list" id="progress-rows" style="margin-top:10px"></ul><p id="progress-total" class="muted" style="margin:12px 0 0"></p></div>
+        <div class="how" id="como-funciona" hidden>
+          <div class="grid-3">
+            <div class="card-x"><div class="step-n">1</div><h4>Aprende</h4><p class="muted">Recorre los cinco módulos: concepto, fundamento, fórmulas, procedimiento y un ejemplo resuelto.</p></div>
+            <div class="card-x"><div class="step-n">2</div><h4>Experimenta</h4><p class="muted">Usa el laboratorio para calcular las iteraciones de cualquier función y ver su gráfica.</p></div>
+            <div class="card-x"><div class="step-n">3</div><h4>Compite</h4><p class="muted">Juega, supera los desafíos y rinde la evaluación final. Los puntos se ganan solo al completar actividades, no al visitar secciones.</p></div>
+          </div>
+          <div class="card-x" style="margin-top:18px"><div class="eyebrow">DISTRIBUCIÓN DE PUNTOS · MÁXIMO 800</div>
+            <ul class="points-list" style="margin-top:10px"><li>Juego 1 · Ordena el algoritmo<b>100</b></li><li>Juego 2 · Detective matemático<b>100</b></li><li>Juego 3 · Cazadores de raíces<b>300</b></li><li>Desafíos<b>200</b></li><li>Evaluación final<b>100</b></li></ul></div>
+        </div>
+      </section>
+
+      <!-- ============ 2. APRENDE MÜLLER (contenido de Valery) ============ -->
+      <section class="seccion" id="aprende">
+        <div class="sec-head"><div class="eyebrow">Sección 02</div><h2>Aprende Müller</h2><p class="muted">Cinco módulos para entender el método desde la idea hasta un ejemplo resuelto. Cada módulo termina con una pregunta de comprensión.</p></div>
+        <div class="tabs" role="tablist">
+          <button class="tab-btn active" data-tab-group="modulos" data-tab-target="#modulo-1">1 · ¿Qué es?</button>
+          <button class="tab-btn" data-tab-group="modulos" data-tab-target="#modulo-2">2 · Fundamento</button>
+          <button class="tab-btn" data-tab-group="modulos" data-tab-target="#modulo-3">3 · Fórmulas</button>
+          <button class="tab-btn" data-tab-group="modulos" data-tab-target="#modulo-4">4 · Procedimiento</button>
+          <button class="tab-btn" data-tab-group="modulos" data-tab-target="#modulo-5">5 · Ejemplo resuelto</button>
+        </div>
+        <section id="modulo-1" class="modulo tab-pane active" data-pane-group="modulos" data-modulo="1">
+  <header class="modulo-cabecera">
+    <span class="modulo-numero">Módulo 1</span>
+    <h3>¿Qué es el método de Müller?</h3>
+    <p class="modulo-resumen">Un método iterativo que busca raíces de f(x) = 0 reemplazando la función, en cada paso, por una parábola.</p>
+  </header>
+
+  <article class="bloque" id="m1-definicion">
+    <h4>Definición</h4>
+    <p>El <strong>método de Müller</strong> es un procedimiento numérico iterativo para aproximar raíces de ecuaciones de la forma \( f(x)=0 \). Fue propuesto por David E. Muller en 1956 como una generalización del método de la secante: en lugar de trazar una <em>recta</em> por dos puntos de la gráfica, construye una <em>parábola</em> que pasa por tres puntos y toma como nueva aproximación la raíz de esa parábola.</p>
+    <p>Partiendo de tres aproximaciones iniciales \( x_0, x_1, x_2 \), cada iteración genera una nueva aproximación \( x_3 \). Después se descarta el punto más antiguo y se repite el proceso con \( x_1, x_2, x_3 \).</p>
+  </article>
+
+  <article class="bloque" id="m1-utilidad">
+    <h4>¿Para qué sirve?</h4>
+    <ul>
+      <li>Resolver ecuaciones no lineales que no se pueden despejar de forma exacta, como \( x^3-x-1=0 \) o \( \cos x = x \).</li>
+      <li>Encontrar raíces de <strong>polinomios</strong>, incluidas las raíces <strong>complejas</strong>, aunque se empiece con números reales.</li>
+      <li>Trabajar cuando la derivada \( f'(x) \) es difícil o imposible de calcular, porque el método <em>no la necesita</em>.</li>
+    </ul>
+  </article>
+
+  <article class="bloque" id="m1-caracteristicas">
+    <h4>Características principales</h4>
+    <ul>
+      <li>Requiere <strong>tres</strong> aproximaciones iniciales.</li>
+      <li>Usa un <strong>polinomio interpolador cuadrático</strong> (parábola).</li>
+      <li>No necesita derivadas y evalúa la función <strong>una sola vez por iteración</strong> (después de la primera).</li>
+      <li>Convergencia <strong>superlineal</strong>: orden aproximado \( p\approx 1.84 \) (la raíz real de \( t^3=t^2+t+1 \)), entre la secante (\( \approx 1.618 \)) y Newton-Raphson (\( 2 \)).</li>
+      <li>Puede producir aproximaciones <strong>complejas</strong> aunque \( f \) sea real y los puntos iniciales sean reales.</li>
+      <li>No exige que la raíz esté encerrada entre dos puntos con distinto signo.</li>
+    </ul>
+  </article>
+
+  <div class="fila-dos-columnas">
+    <article class="bloque bloque-ventajas" id="m1-ventajas">
+      <h4>Ventajas</h4>
+      <ul>
+        <li>Convergencia más rápida que la bisección y que la secante.</li>
+        <li>No requiere derivada.</li>
+        <li>Encuentra raíces reales y complejas con el mismo procedimiento.</li>
+        <li>Una evaluación de \( f \) por iteración: económico cuando \( f \) es costosa.</li>
+      </ul>
+    </article>
+    <article class="bloque bloque-limitaciones" id="m1-limitaciones">
+      <h4>Limitaciones</h4>
+      <ul>
+        <li><strong>No garantiza convergencia</strong>: depende de las tres aproximaciones iniciales.</li>
+        <li>Exige aritmética compleja cuando el discriminante es negativo.</li>
+        <li>Falla si hay puntos repetidos (\( h_0=0 \) o \( h_1=0 \)) o si \( h_0+h_1=0 \).</li>
+        <li>En raíces múltiples la convergencia se vuelve más lenta.</li>
+        <li>Es más complejo de programar que la bisección o Newton.</li>
+      </ul>
+    </article>
+  </div>
+
+  <article class="bloque" id="m1-comparacion">
+    <h4>Comparación con otros métodos</h4>
+    <div class="tabla-responsive">
+      <table class="tabla-comparativa">
+        <thead>
+          <tr><th>Aspecto</th><th>Bisección</th><th>Newton-Raphson</th><th>Müller</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Datos iniciales</th><td>Intervalo \( [a,b] \) con cambio de signo</td><td>1 aproximación</td><td>3 aproximaciones</td></tr>
+          <tr><th scope="row">¿Necesita \( f'(x) \)?</th><td>No</td><td>Sí</td><td>No</td></tr>
+          <tr><th scope="row">Orden de convergencia</th><td>1 (lineal)</td><td>2 (cuadrática)</td><td>≈ 1.84 (superlineal)</td></tr>
+          <tr><th scope="row">¿Garantiza convergencia?</th><td>Sí, si \( f \) es continua y hay cambio de signo</td><td>No</td><td>No</td></tr>
+          <tr><th scope="row">Evaluaciones por iteración</th><td>1 de \( f \)</td><td>1 de \( f \) + 1 de \( f' \)</td><td>1 de \( f \)</td></tr>
+          <tr><th scope="row">Raíces complejas con datos reales</th><td>No</td><td>No</td><td>Sí</td></tr>
+          <tr><th scope="row">Aproxima \( f \) con…</th><td>Un intervalo que se reduce a la mitad</td><td>Una recta tangente</td><td>Una parábola</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota">Idea clave: Müller es a la secante lo que una parábola es a una recta. Pierde la garantía de la bisección, pero gana velocidad y alcance.</p>
+  </article>
+
+  <figure class="ilustracion" data-ilustracion="comparacion-rectas-parabola">
+<svg viewBox="0 0 640 250" role="img" aria-label="Comparación de la recta secante y la parábola de Müller sobre la misma curva" xmlns="http://www.w3.org/2000/svg"><text x="20" y="16" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="13" font-weight="700">Secante: 2 puntos, recta</text><line x1="20" y1="177.0" x2="310" y2="177.0" stroke="#94a3b8"/><polyline points="20.0,201.5 24.7,201.0 29.3,200.6 34.0,200.0 38.7,199.4 43.3,198.8 48.0,198.1 52.7,197.3 57.3,196.5 62.0,195.6 66.7,194.7 71.3,193.7 76.0,192.6 80.7,191.4 85.3,190.2 90.0,189.0 94.7,187.6 99.3,186.2 104.0,184.7 108.7,183.1 113.3,181.5 118.0,179.7 122.7,177.9 127.3,176.0 132.0,174.0 136.7,172.0 141.3,169.8 146.0,167.6 150.7,165.3 155.3,162.9 160.0,160.4 164.7,157.8 169.3,155.1 174.0,152.3 178.7,149.4 183.3,146.4 188.0,143.4 192.7,140.2 197.3,136.9 202.0,133.5 206.7,130.0 211.3,126.4 216.0,122.7 220.7,118.8 225.3,114.9 230.0,110.8 234.7,106.7 239.3,102.4 244.0,98.0 248.7,93.5 253.3,88.8 258.0,84.1 262.7,79.2 267.3,74.2 272.0,69.0 276.7,63.8 281.3,58.4 286.0,52.9 290.7,47.2 295.3,41.4 300.0,35.5" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4 3"/><polyline points="20.0,210.2 24.7,208.6 29.3,206.9 34.0,205.3 38.7,203.6 43.3,201.9 48.0,200.3 52.7,198.6 57.3,196.9 62.0,195.3 66.7,193.6 71.3,192.0 76.0,190.3 80.7,188.6 85.3,187.0 90.0,185.3 94.7,183.7 99.3,182.0 104.0,180.3 108.7,178.7 113.3,177.0 118.0,175.3 122.7,173.7 127.3,172.0 132.0,170.4 136.7,168.7 141.3,167.0 146.0,165.4 150.7,163.7 155.3,162.0 160.0,160.4 164.7,158.7 169.3,157.1 174.0,155.4 178.7,153.7 183.3,152.1 188.0,150.4 192.7,148.7 197.3,147.1 202.0,145.4 206.7,143.8 211.3,142.1 216.0,140.4 220.7,138.8 225.3,137.1 230.0,135.4 234.7,133.8 239.3,132.1 244.0,130.4 248.7,128.8 253.3,127.1 258.0,125.5 262.7,123.8 267.3,122.1 272.0,120.5 276.7,118.8 281.3,117.2 286.0,115.5 290.7,113.8 295.3,112.2 300.0,110.5" fill="none" stroke="#fb7185" stroke-width="3"/><circle cx="60.0" cy="196.0" r="5" fill="#22d3ee"/><circle cx="160.0" cy="160.4" r="5" fill="#22d3ee"/><circle cx="113.3" cy="177.0" r="6" fill="#34d399"/><text x="103.3" y="197.0" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="11">x≈1.267</text><text x="330" y="16" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="13" font-weight="700">Müller: 3 puntos, parábola</text><line x1="330" y1="177.0" x2="620" y2="177.0" stroke="#94a3b8"/><polyline points="330.0,201.5 334.7,201.0 339.3,200.6 344.0,200.0 348.7,199.4 353.3,198.8 358.0,198.1 362.7,197.3 367.3,196.5 372.0,195.6 376.7,194.7 381.3,193.7 386.0,192.6 390.7,191.4 395.3,190.2 400.0,189.0 404.7,187.6 409.3,186.2 414.0,184.7 418.7,183.1 423.3,181.5 428.0,179.7 432.7,177.9 437.3,176.0 442.0,174.0 446.7,172.0 451.3,169.8 456.0,167.6 460.7,165.3 465.3,162.9 470.0,160.4 474.7,157.8 479.3,155.1 484.0,152.3 488.7,149.4 493.3,146.4 498.0,143.4 502.7,140.2 507.3,136.9 512.0,133.5 516.7,130.0 521.3,126.4 526.0,122.7 530.7,118.8 535.3,114.9 540.0,110.8 544.7,106.7 549.3,102.4 554.0,98.0 558.7,93.5 563.3,88.8 568.0,84.1 572.7,79.2 577.3,74.2 582.0,69.0 586.7,63.8 591.3,58.4 596.0,52.9 600.7,47.2 605.3,41.4 610.0,35.5" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4 3"/><polyline points="330.0,198.3 334.7,198.4 339.3,198.4 344.0,198.3 348.7,198.1 353.3,197.8 358.0,197.4 362.7,196.9 367.3,196.4 372.0,195.7 376.7,195.0 381.3,194.1 386.0,193.2 390.7,192.1 395.3,191.0 400.0,189.8 404.7,188.5 409.3,187.1 414.0,185.6 418.7,184.0 423.3,182.3 428.0,180.5 432.7,178.7 437.3,176.7 442.0,174.7 446.7,172.5 451.3,170.3 456.0,167.9 460.7,165.5 465.3,163.0 470.0,160.4 474.7,157.7 479.3,154.9 484.0,152.0 488.7,149.0 493.3,145.9 498.0,142.7 502.7,139.5 507.3,136.1 512.0,132.7 516.7,129.1 521.3,125.5 526.0,121.8 530.7,117.9 535.3,114.0 540.0,110.0 544.7,105.9 549.3,101.7 554.0,97.4 558.7,93.0 563.3,88.6 568.0,84.0 572.7,79.3 577.3,74.6 582.0,69.7 586.7,64.8 591.3,59.7 596.0,54.6 600.7,49.4 605.3,44.1 610.0,38.7" fill="none" stroke="#8b5cf6" stroke-width="3"/><circle cx="370.0" cy="196.0" r="5" fill="#22d3ee"/><circle cx="470.0" cy="160.4" r="5" fill="#22d3ee"/><circle cx="570.0" cy="82.0" r="5" fill="#22d3ee"/><circle cx="436.7" cy="177.0" r="6" fill="#34d399"/><text x="426.7" y="197.0" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="11">x₃≈1.3333</text></svg>
+<figcaption>Una recta por dos puntos (secante) frente a una parábola por tres puntos (Müller).</figcaption>
+</figure>
+
+  <section class="comprension" data-modulo="1" data-correcta="b">
+    <h4>Pregunta de comprensión</h4>
+    <p>¿Qué diferencia fundamental tiene el método de Müller respecto al de la secante?</p>
+    <ul class="opciones">
+      <li data-opcion="a">Müller necesita la derivada de la función y la secante no.</li>
+      <li data-opcion="b">Müller aproxima la función con una parábola por tres puntos, y la secante con una recta por dos puntos.</li>
+      <li data-opcion="c">Müller solo funciona con intervalos que cambian de signo.</li>
+      <li data-opcion="d">Müller divide el intervalo por la mitad en cada paso.</li>
+    </ul>
+    <div class="retro retro-ok">¡Correcto! Müller generaliza la secante: pasa de una recta (2 puntos) a una parábola (3 puntos), lo que le permite capturar la curvatura de \( f \) y alcanzar raíces complejas.</div>
+    <div class="retro retro-error">Revisa la idea central: Müller <em>no</em> usa derivadas (opción a) ni intervalos con cambio de signo (c); dividir a la mitad es la bisección (d). La diferencia es usar una parábola por tres puntos en lugar de una recta por dos.</div>
+  </section>
+</section>
+
+
+<!-- ===================================================================== -->
+<!-- MÓDULO 2 -->
+<!-- ===================================================================== -->
+<section id="modulo-2" class="modulo tab-pane" data-pane-group="modulos" data-modulo="2">
+  <header class="modulo-cabecera">
+    <span class="modulo-numero">Módulo 2</span>
+    <h3>Fundamento matemático</h3>
+    <p class="modulo-resumen">Tres puntos determinan una parábola; la raíz de esa parábola es la nueva aproximación.</p>
+  </header>
+
+  <article class="bloque" id="m2-tres-puntos">
+    <h4>¿Por qué tres aproximaciones iniciales?</h4>
+    <p>Una parábola \( p(x)=ax^2+bx+c \) tiene <strong>tres coeficientes</strong> desconocidos. Para determinarlos de forma única se necesitan tres condiciones, es decir, tres puntos de la gráfica de \( f \):</p>
+    \[ p(x_0)=f(x_0),\qquad p(x_1)=f(x_1),\qquad p(x_2)=f(x_2) \]
+    <p>Con dos puntos solo se define una recta (secante); con tres, una parábola. Los puntos deben ser <strong>distintos</strong>; si dos coinciden, el sistema pierde una condición y el método no puede continuar.</p>
+  </article>
+
+  <article class="bloque" id="m2-polinomio">
+    <h4>El polinomio interpolador cuadrático centrado en \( x_2 \)</h4>
+    <p>Para simplificar los cálculos, Müller escribe la parábola con el punto más reciente, \( x_2 \), como centro:</p>
+    \[ p(x)=a\,(x-x_2)^2+b\,(x-x_2)+c \]
+    <p>Esta forma tiene una lectura geométrica directa:</p>
+    <ul>
+      <li>\( c=p(x_2)=f(x_2) \): el valor de la función en el punto más reciente.</li>
+      <li>\( b=p'(x_2) \): la pendiente de la parábola en \( x_2 \).</li>
+      <li>\( a \): la curvatura (concavidad) de la parábola.</li>
+    </ul>
+  </article>
+
+  <article class="bloque" id="m2-coeficientes">
+    <h4>De dónde salen \( a \), \( b \) y \( c \)</h4>
+    <p>Se definen \( h_0=x_1-x_0 \), \( h_1=x_2-x_1 \) y las pendientes de las rectas secantes (diferencias divididas):</p>
+    \[ \delta_0=\frac{f(x_1)-f(x_0)}{h_0},\qquad \delta_1=\frac{f(x_2)-f(x_1)}{h_1} \]
+    <ol>
+      <li><strong>Condición en \( x_2 \):</strong> \( p(x_2)=c=f(x_2) \).</li>
+      <li><strong>Condición en \( x_1 \):</strong> como \( x_1-x_2=-h_1 \), se cumple \( a h_1^2-b h_1+c=f(x_1) \). Al despejar con \( \delta_1=\dfrac{c-f(x_1)}{h_1} \) resulta \( b=\delta_1+a\,h_1 \).</li>
+      <li><strong>Condición en \( x_0 \):</strong> como \( x_0-x_2=-(h_0+h_1) \), al sustituir \( b \) y simplificar se obtiene \( a\,(h_0+h_1)=\delta_1-\delta_0 \).</li>
+    </ol>
+    <p>Por tanto:</p>
+    \[ a=\frac{\delta_1-\delta_0}{h_1+h_0}=d,\qquad b=\delta_1+h_1\,d,\qquad c=f(x_2) \]
+    <p class="nota">La cantidad \( d \) es la <em>segunda diferencia dividida</em> de \( f \) en \( x_0,x_1,x_2 \): mide cuánto cambia la pendiente entre los dos tramos y, por eso, representa la curvatura.</p>
+  </article>
+
+  <article class="bloque" id="m2-raiz">
+    <h4>La raíz de la parábola</h4>
+    <p>Se busca \( p(x_3)=0 \). Con \( z=x_3-x_2 \), la ecuación queda \( a z^2+b z+c=0 \), cuya solución por la fórmula cuadrática es:</p>
+    \[ z=\frac{-b\pm\sqrt{b^2-4ac}}{2a} \]
+    <p>Para evitar dividir entre \( a \) (que puede ser casi cero cuando \( f \) es casi lineal), se racionaliza la expresión y se obtiene la forma equivalente que usa Müller:</p>
+    \[ z=\frac{-2c}{b\pm\sqrt{b^2-4ac}}\quad\Longrightarrow\quad x_3=x_2-\frac{2c}{b\pm\sqrt{D}},\qquad D=b^2-4ac \]
+    <p>Si \( a\to 0 \), entonces \( D\to b^2 \) y con el signo «+» (para \( b>0 \)) resulta \( x_3\to x_2-c/b \): exactamente un paso de la secante. Así, <strong>Müller contiene a la secante como caso límite</strong>.</p>
+    <p>Una parábola tiene dos raíces; el método conserva la <strong>más cercana a \( x_2 \)</strong>, lo que corresponde a elegir el denominador de mayor magnitud (módulo 3).</p>
+  </article>
+
+  <figure class="ilustracion" data-ilustracion="parabola-tres-puntos">
+    <svg viewBox="0 0 480 250" role="img" aria-label="Parábola que pasa por tres puntos y corta el eje x en dos raíces; se elige la más cercana al último punto" xmlns="http://www.w3.org/2000/svg">
+      <line x1="20" y1="170" x2="465" y2="170" stroke="#94a3b8" stroke-width="1.5"/>
+      <path d="M60,60 Q230,330 400,60" fill="none" stroke="#8b5cf6" stroke-width="3"/>
+      <circle cx="77" cy="86" r="6" fill="#22d3ee"/>
+      <circle cx="94" cy="109" r="6" fill="#22d3ee"/>
+      <circle cx="118" cy="136" r="6" fill="#22d3ee"/>
+      <circle cx="159" cy="170" r="7" fill="#22c55e"/>
+      <circle cx="301" cy="170" r="7" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+      <text x="62" y="76" fill="#e2e8f0" font-size="13">x₀</text>
+      <text x="99" y="104" fill="#e2e8f0" font-size="13">x₁</text>
+      <text x="124" y="131" fill="#e2e8f0" font-size="13">x₂</text>
+      <text x="138" y="192" fill="#22c55e" font-size="13" font-weight="bold">x₃ (elegida)</text>
+      <text x="262" y="192" fill="#ef4444" font-size="13">otra raíz (se descarta)</text>
+      <text x="300" y="60" fill="#8b5cf6" font-size="13">p(x) = a(x−x₂)² + b(x−x₂) + c</text>
+      <text x="425" y="162" fill="#94a3b8" font-size="12">eje x</text>
+    </svg>
+    <figcaption>Esquema (no a escala): la parábola pasa por \( (x_0,f_0),(x_1,f_1),(x_2,f_2) \). Corta el eje x en dos puntos; Müller toma como \( x_3 \) el más cercano a \( x_2 \).</figcaption>
+  </figure>
+
+  <section class="comprension" data-modulo="2" data-correcta="c">
+    <h4>Pregunta de comprensión</h4>
+    <p>¿Por qué el método de Müller necesita exactamente tres aproximaciones iniciales?</p>
+    <ul class="opciones">
+      <li data-opcion="a">Para promediar tres valores y reducir el error.</li>
+      <li data-opcion="b">Porque la ecuación a resolver siempre es de tercer grado.</li>
+      <li data-opcion="c">Porque una parábola tiene tres coeficientes y tres puntos la determinan de forma única.</li>
+      <li data-opcion="d">Porque con tres puntos la convergencia queda garantizada.</li>
+    </ul>
+    <div class="retro retro-ok">¡Correcto! El polinomio cuadrático \( ax^2+bx+c \) tiene tres incógnitas; tres puntos distintos de la gráfica generan tres condiciones que fijan \( a \), \( b \) y \( c \).</div>
+    <div class="retro retro-error">Recuerda que el método no promedia puntos (a), no depende del grado de la ecuación (b) y no garantiza la convergencia (d). El número tres viene de los tres coeficientes de la parábola.</div>
+  </section>
+</section>
+
+
+<!-- ===================================================================== -->
+<!-- MÓDULO 3 -->
+<!-- ===================================================================== -->
+<section id="modulo-3" class="modulo tab-pane" data-pane-group="modulos" data-modulo="3">
+  <header class="modulo-cabecera">
+    <span class="modulo-numero">Módulo 3</span>
+    <h3>Fórmulas</h3>
+    <p class="modulo-resumen">Todas las fórmulas del método, qué significa cada una y por qué se elige el denominador de mayor magnitud.</p>
+  </header>
+
+  <article class="bloque" id="m3-formulas">
+    <h4>Fórmulas del método</h4>
+    <div class="tabla-responsive">
+      <table class="tabla-formulas">
+        <thead><tr><th>Cantidad</th><th>Fórmula</th><th>Significado</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Paso izquierdo</th><td>\( h_0=x_1-x_0 \)</td><td>Distancia entre el primer y el segundo punto.</td></tr>
+          <tr><th scope="row">Paso derecho</th><td>\( h_1=x_2-x_1 \)</td><td>Distancia entre el segundo y el tercer punto.</td></tr>
+          <tr><th scope="row">Pendiente izquierda</th><td>\( \delta_0=\dfrac{f(x_1)-f(x_0)}{h_0} \)</td><td>Pendiente de la secante entre \( x_0 \) y \( x_1 \).</td></tr>
+          <tr><th scope="row">Pendiente derecha</th><td>\( \delta_1=\dfrac{f(x_2)-f(x_1)}{h_1} \)</td><td>Pendiente de la secante entre \( x_1 \) y \( x_2 \).</td></tr>
+          <tr><th scope="row">Segunda diferencia dividida</th><td>\( d=\dfrac{\delta_1-\delta_0}{h_1+h_0} \)</td><td>Mide el cambio de pendiente (curvatura).</td></tr>
+          <tr><th scope="row">Coeficiente cuadrático</th><td>\( a=d \)</td><td>Curvatura de la parábola.</td></tr>
+          <tr><th scope="row">Coeficiente lineal</th><td>\( b=\delta_1+h_1\,d \)</td><td>Pendiente de la parábola en \( x_2 \).</td></tr>
+          <tr><th scope="row">Término independiente</th><td>\( c=f(x_2) \)</td><td>Valor de la función en \( x_2 \).</td></tr>
+          <tr><th scope="row">Discriminante</th><td>\( D=b^2-4ac \)</td><td>Indica si las raíces de la parábola son reales o complejas.</td></tr>
+          <tr><th scope="row">Nueva aproximación</th><td>\( x_3=x_2-\dfrac{2c}{b\pm\sqrt{D}} \)</td><td>Raíz de la parábola más cercana a \( x_2 \).</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Criterio de parada del proyecto: <strong>error absoluto</strong> \( E=|x_3-x_2| \). El método se detiene cuando \( E<\text{tolerancia} \) o cuando se alcanza el máximo de iteraciones.</p>
+  </article>
+
+  <article class="bloque" id="m3-discriminante">
+    <h4>Interpretación del discriminante</h4>
+    <ul>
+      <li>\( D>0 \): la parábola corta el eje x en dos puntos reales distintos.</li>
+      <li>\( D=0 \): la parábola toca el eje x en un solo punto (raíz doble).</li>
+      <li>\( D<0 \): la parábola no corta el eje x; sus raíces son complejas conjugadas y \( \sqrt{D} \) es un número imaginario. La nueva aproximación \( x_3 \) será un número complejo.</li>
+    </ul>
+  </article>
+
+  <article class="bloque" id="m3-denominador">
+    <h4>Selección del denominador de mayor magnitud absoluta</h4>
+    <p>En \( x_3=x_2-\dfrac{2c}{b\pm\sqrt{D}} \) hay dos denominadores posibles: \( b+\sqrt{D} \) y \( b-\sqrt{D} \). <strong>Se elige el de mayor módulo</strong>:</p>
+    \[ \text{den}=\begin{cases} b+\sqrt{D} & \text{si } |b+\sqrt{D}|\ge |b-\sqrt{D}|\\[4pt] b-\sqrt{D} & \text{en otro caso} \end{cases} \]
+    <p><strong>¿Por qué?</strong> Cuando \( ac \) es pequeño frente a \( b^2 \), entonces \( \sqrt{D}\approx |b| \) y uno de los dos denominadores resta dos números casi iguales. Esa resta provoca <em>cancelación numérica</em>: se pierden cifras significativas.</p>
+    <div class="ejemplo-numerico">
+      <p><strong>Ejemplo:</strong> con \( a=1,\ b=1000,\ c=0.001 \): \( D=10^6-0.004 \) y \( \sqrt{D}\approx 999.999998 \).</p>
+      <ul>
+        <li>\( b-\sqrt{D}\approx 0.000002 \): resta de números casi iguales; se pierden aproximadamente 8 de las ≈16 cifras que ofrece la doble precisión.</li>
+        <li>\( b+\sqrt{D}\approx 1999.999998 \): suma sin pérdida de precisión.</li>
+      </ul>
+    </div>
+    <p>Elegir el denominador mayor tiene además un efecto geométrico: hace que \( |x_3-x_2| \) sea pequeño, es decir, que se escoja la raíz de la parábola <em>más cercana a \( x_2 \)</em>. Con coeficientes reales, equivale a usar el signo de \( b \) (\( + \) si \( b\ge 0 \), \( - \) si \( b<0 \)). Con números complejos se comparan los <strong>módulos</strong>.</p>
+    <p class="nota">Convención del proyecto: si ambos módulos son iguales (empate), se usa \( b+\sqrt{D} \).</p>
+  </article>
+
+  <figure class="ilustracion" data-ilustracion="cancelacion-numerica">
+<svg viewBox="0 0 480 205" role="img" aria-label="Barras que comparan la resta inestable con la suma estable" xmlns="http://www.w3.org/2000/svg"><text x="20" y="22" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="13" font-weight="700">Resta b − √D (inestable)</text><rect x="20" y="32" width="440" height="22" rx="5" fill="#8b5cf6"/><rect x="20" y="60" width="439" height="22" rx="5" fill="#fb7185"/><text x="20" y="102" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12">resta ≈ 0.000002 → se pierden cifras</text><text x="20" y="138" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="13" font-weight="700">Suma b + √D (estable, denominador elegido)</text><rect x="20" y="148" width="220" height="22" rx="5" fill="#8b5cf6"/><rect x="240" y="148" width="219" height="22" rx="5" fill="#34d399"/><text x="20" y="190" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12">suma ≈ 1999.999998 → estable</text></svg>
+<figcaption>Verde: denominador elegido (estable). Rojo: denominador descartado.</figcaption>
+</figure>
+
+  <section class="comprension" data-modulo="3" data-correcta="d">
+    <h4>Pregunta de comprensión</h4>
+    <p>En \( x_3=x_2-\dfrac{2c}{b\pm\sqrt{D}} \), ¿qué denominador debe elegirse y por qué?</p>
+    <ul class="opciones">
+      <li data-opcion="a">El de menor magnitud, para que el paso sea más grande.</li>
+      <li data-opcion="b">Siempre \( b-\sqrt{D} \), porque es el que aparece en la fórmula cuadrática.</li>
+      <li data-opcion="c">Siempre \( b+\sqrt{D} \), sin importar los valores.</li>
+      <li data-opcion="d">El de mayor magnitud absoluta, para evitar la cancelación numérica y elegir la raíz más cercana a \( x_2 \).</li>
+    </ul>
+    <div class="retro retro-ok">¡Correcto! El denominador de mayor módulo evita restar cantidades casi iguales (cancelación) y produce la raíz de la parábola más próxima a \( x_2 \).</div>
+    <div class="retro retro-error">Ninguno de los signos es «siempre» correcto: depende de \( b \). La regla es elegir el denominador de mayor magnitud absoluta; así se evita la cancelación numérica.</div>
+  </section>
+</section>
+
+
+<!-- ===================================================================== -->
+<!-- MÓDULO 4 -->
+<!-- ===================================================================== -->
+<section id="modulo-4" class="modulo tab-pane" data-pane-group="modulos" data-modulo="4">
+  <header class="modulo-cabecera">
+    <span class="modulo-numero">Módulo 4</span>
+    <h3>Procedimiento iterativo</h3>
+    <p class="modulo-resumen">Los diez pasos del algoritmo, desde los datos iniciales hasta la convergencia.</p>
+  </header>
+
+  <article class="bloque" id="m4-pasos">
+    <h4>Los diez pasos</h4>
+    <ol class="pasos-algoritmo">
+      <li data-paso="1"><strong>Seleccionar tres aproximaciones iniciales</strong> \( x_0,x_1,x_2 \) distintas entre sí, junto con la tolerancia y el máximo de iteraciones.</li>
+      <li data-paso="2"><strong>Evaluar la función</strong> en los tres puntos: \( f(x_0),f(x_1),f(x_2) \).</li>
+      <li data-paso="3"><strong>Calcular \( h_0 \) y \( h_1 \)</strong>: \( h_0=x_1-x_0 \), \( h_1=x_2-x_1 \).</li>
+      <li data-paso="4"><strong>Calcular las diferencias divididas</strong> \( \delta_0 \) y \( \delta_1 \).</li>
+      <li data-paso="5"><strong>Obtener los coeficientes cuadráticos</strong>: \( d=\dfrac{\delta_1-\delta_0}{h_1+h_0} \), \( a=d \), \( b=\delta_1+h_1 d \), \( c=f(x_2) \).</li>
+      <li data-paso="6"><strong>Calcular el discriminante</strong> \( D=b^2-4ac \) (puede ser negativo: se usa aritmética compleja).</li>
+      <li data-paso="7"><strong>Seleccionar el denominador estable</strong>: el de mayor módulo entre \( b+\sqrt{D} \) y \( b-\sqrt{D} \).</li>
+      <li data-paso="8"><strong>Calcular la nueva aproximación</strong> \( x_3=x_2-\dfrac{2c}{\text{den}} \).</li>
+      <li data-paso="9"><strong>Evaluar el error</strong> \( E=|x_3-x_2| \) y compararlo con la tolerancia.</li>
+      <li data-paso="10"><strong>Actualizar los puntos y repetir</strong>: \( x_0\leftarrow x_1,\ x_1\leftarrow x_2,\ x_2\leftarrow x_3 \). Si \( E<\text{tol} \), detenerse; si no, volver al paso 2.</li>
+    </ol>
+  </article>
+
+  <article class="bloque" id="m4-parada">
+    <h4>¿Cuándo se detiene el método?</h4>
+    <ul>
+      <li><strong>Convergencia:</strong> \( |x_3-x_2| < \text{tolerancia} \). Se acepta \( x_3 \) como raíz aproximada.</li>
+      <li><strong>Máximo de iteraciones:</strong> se alcanzó el límite sin cumplir la tolerancia; el resultado no es confiable.</li>
+      <li><strong>Divergencia:</strong> los valores crecen sin control o dejan de ser números finitos.</li>
+      <li><strong>Error matemático:</strong> puntos repetidos (\( h_0=0 \) o \( h_1=0 \)), \( h_0+h_1=0 \), denominador igual a cero o función no evaluable.</li>
+    </ul>
+  </article>
+
+  <article class="bloque" id="m4-desplazamiento">
+    <h4>El desplazamiento de los puntos</h4>
+    <p>Al terminar cada iteración se «descarta» el punto más antiguo y la nueva aproximación pasa a ser el punto más reciente. Como \( x_3 \) suele estar más cerca de la raíz que los anteriores, cada parábola es una mejor imitación local de \( f \):</p>
+    \[ (x_0,x_1,x_2)\;\longrightarrow\;(x_1,x_2,x_3)\;\longrightarrow\;(x_2,x_3,x_4)\;\longrightarrow\;\cdots \]
+    <p class="nota">Por esta razón \( h_1 \) puede ser negativo: no se exige que los puntos queden ordenados de menor a mayor.</p>
+  </article>
+
+  <figure class="ilustracion" data-ilustracion="diagrama-flujo">
+<svg viewBox="0 0 500 456" role="img" aria-label="Diagrama de flujo de diez pasos con retorno si el error es mayor o igual que la tolerancia" xmlns="http://www.w3.org/2000/svg"><rect x="140" y="10" width="250" height="32" rx="9" fill="#0f1b33" stroke="#22d3ee" stroke-width="2"/><text x="152" y="31" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12"><tspan font-weight="800" fill="#22d3ee">1</tspan>  Elegir x₀, x₁, x₂</text><line x1="265" y1="42" x2="265" y2="54" stroke="#64748b"/><rect x="140" y="54" width="250" height="32" rx="9" fill="#0f1b33" stroke="#22d3ee" stroke-width="2"/><text x="152" y="75" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12"><tspan font-weight="800" fill="#22d3ee">2</tspan>  Evaluar f en los 3 puntos</text><line x1="265" y1="86" x2="265" y2="98" stroke="#64748b"/><rect x="140" y="98" width="250" height="32" rx="9" fill="#0f1b33" stroke="#22d3ee" stroke-width="2"/><text x="152" y="119" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12"><tspan font-weight="800" fill="#22d3ee">3</tspan>  Calcular h₀ y h₁</text><line x1="265" y1="130" x2="265" y2="142" stroke="#64748b"/><rect x="140" y="142" width="250" height="32" rx="9" fill="#0f1b33" stroke="#22d3ee" stroke-width="2"/><text x="152" y="163" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12"><tspan font-weight="800" fill="#22d3ee">4</tspan>  Diferencias divididas δ₀, δ₁</text><line x1="265" y1="174" x2="265" y2="186" stroke="#64748b"/><rect x="140" y="186" width="250" height="32" rx="9" fill="#0f1b33" stroke="#22d3ee" stroke-width="2"/><text x="152" y="207" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12"><tspan font-weight="800" fill="#22d3ee">5</tspan>  Coeficientes a, b, c</text><line x1="265" y1="218" x2="265" y2="230" stroke="#64748b"/><rect x="140" y="230" width="250" height="32" rx="9" fill="#0f1b33" stroke="#22d3ee" stroke-width="2"/><text x="152" y="251" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12"><tspan font-weight="800" fill="#22d3ee">6</tspan>  Discriminante D = b² − 4ac</text><line x1="265" y1="262" x2="265" y2="274" stroke="#64748b"/><rect x="140" y="274" width="250" height="32" rx="9" fill="#0f1b33" stroke="#22d3ee" stroke-width="2"/><text x="152" y="295" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12"><tspan font-weight="800" fill="#22d3ee">7</tspan>  Elegir denominador estable</text><line x1="265" y1="306" x2="265" y2="318" stroke="#64748b"/><rect x="140" y="318" width="250" height="32" rx="9" fill="#0f1b33" stroke="#22d3ee" stroke-width="2"/><text x="152" y="339" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12"><tspan font-weight="800" fill="#22d3ee">8</tspan>  Calcular x₃</text><line x1="265" y1="350" x2="265" y2="362" stroke="#64748b"/><rect x="140" y="362" width="250" height="32" rx="9" fill="#0f1b33" stroke="#8b5cf6" stroke-width="2"/><text x="152" y="383" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12"><tspan font-weight="800" fill="#8b5cf6">9</tspan>  ¿E < tol?</text><line x1="265" y1="394" x2="265" y2="406" stroke="#64748b"/><rect x="140" y="406" width="250" height="32" rx="9" fill="#0f1b33" stroke="#8b5cf6" stroke-width="2"/><text x="152" y="427" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12"><tspan font-weight="800" fill="#8b5cf6">10</tspan>  Actualizar x₀←x₁, x₁←x₂, x₂←x₃</text><path d="M390 410 H460 V70 H392" fill="none" stroke="#fbbf24" stroke-width="2"/><polygon points="392,66 392,74 384,70" fill="#fbbf24"/><text x="468" y="240" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="12" transform="rotate(90 468 240)">Si E ≥ tol (volver al paso 2)</text><path d="M140 358 H60" stroke="#34d399" stroke-width="2"/><text x="6" y="350" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="11">E &lt; tol →</text><text x="6" y="376" fill="#34d399" font-family="Inter,sans-serif" font-size="11" font-weight="700">Raíz encontrada</text></svg>
+<figcaption>Los pasos 9 y 10 son decisiones del algoritmo.</figcaption>
+</figure>
+
+  <section class="comprension" data-modulo="4" data-correcta="a">
+    <h4>Pregunta de comprensión</h4>
+    <p>Después de calcular \( x_3 \) y comprobar que el error aún es mayor que la tolerancia, ¿cómo se actualizan los puntos?</p>
+    <ul class="opciones">
+      <li data-opcion="a">\( x_0\leftarrow x_1,\ x_1\leftarrow x_2,\ x_2\leftarrow x_3 \)</li>
+      <li data-opcion="b">\( x_0\leftarrow x_0,\ x_1\leftarrow x_2,\ x_2\leftarrow x_3 \)</li>
+      <li data-opcion="c">\( x_0\leftarrow x_3,\ x_1\leftarrow x_0,\ x_2\leftarrow x_1 \)</li>
+      <li data-opcion="d">Los tres puntos iniciales se conservan y solo se agrega \( x_3 \).</li>
+    </ul>
+    <div class="retro retro-ok">¡Correcto! Se descarta el punto más antiguo (\( x_0 \)) y la nueva aproximación se convierte en el punto más reciente (\( x_2 \)).</div>
+    <div class="retro retro-error">El método siempre trabaja con <em>tres</em> puntos y descarta el más antiguo: \( x_0\leftarrow x_1 \), \( x_1\leftarrow x_2 \), \( x_2\leftarrow x_3 \).</div>
+  </section>
+</section>
+
+
+<!-- ===================================================================== -->
+<!-- MÓDULO 5 -->
+<!-- ===================================================================== -->
+<section id="modulo-5" class="modulo tab-pane" data-pane-group="modulos" data-modulo="5">
+  <header class="modulo-cabecera">
+    <span class="modulo-numero">Módulo 5</span>
+    <h3>Ejemplo resuelto</h3>
+    <p class="modulo-resumen">Calculamos paso a paso una raíz de \( f(x)=x^3-x-1 \) y observamos cómo converge hacia 1.3247.</p>
+  </header>
+
+  <article class="bloque" id="m5-datos">
+    <h4>Datos</h4>
+    <ul>
+      <li>Función: \( f(x)=x^3-x-1 \)</li>
+      <li>Aproximaciones iniciales: \( x_0=1,\ x_1=1.5,\ x_2=2 \)</li>
+      <li>Tolerancia: \( 0.0001 \) · Máximo de iteraciones: \( 50 \)</li>
+      <li>Criterio de error: \( E=|x_3-x_2| \)</li>
+    </ul>
+  </article>
+
+  <article class="bloque" id="m5-iteracion-1">
+    <h4>Iteración 1</h4>
+    <p><strong>Paso 2 – Evaluar la función:</strong></p>
+    \[ f(1)=1-1-1=-1,\quad f(1.5)=3.375-1.5-1=0.875,\quad f(2)=8-2-1=5 \]
+    <p><strong>Paso 3 – Pasos:</strong> \( h_0=1.5-1=0.5 \), \( h_1=2-1.5=0.5 \).</p>
+    <p><strong>Paso 4 – Diferencias divididas:</strong></p>
+    \[ \delta_0=\frac{0.875-(-1)}{0.5}=3.75,\qquad \delta_1=\frac{5-0.875}{0.5}=8.25 \]
+    <p><strong>Paso 5 – Coeficientes:</strong></p>
+    \[ d=\frac{8.25-3.75}{0.5+0.5}=4.5,\quad a=4.5,\quad b=8.25+0.5\cdot 4.5=10.5,\quad c=5 \]
+    <p><strong>Paso 6 – Discriminante:</strong></p>
+    \[ D=10.5^2-4(4.5)(5)=110.25-90=20.25,\qquad \sqrt{D}=4.5 \]
+    <p><strong>Paso 7 – Denominador estable:</strong> \( b+\sqrt{D}=15 \) y \( b-\sqrt{D}=6 \). Se elige <strong>15</strong> (mayor magnitud).</p>
+    <p><strong>Paso 8 – Nueva aproximación:</strong></p>
+    \[ x_3=2-\frac{2\cdot 5}{15}=2-0.666667=1.333333 \]
+    <p><strong>Paso 9 – Error:</strong> \( E=|1.333333-2|=0.666667 \ge 0.0001 \) → continuar. Además, \( f(x_3)=0.037037 \).</p>
+    <p><strong>Paso 10 – Actualizar:</strong> \( x_0=1.5,\ x_1=2,\ x_2=1.333333 \).</p>
+  </article>
+
+  <article class="bloque" id="m5-iteracion-2">
+    <h4>Iteración 2</h4>
+    \[ f(1.5)=0.875,\quad f(2)=5,\quad f(1.333333)=0.037037 \]
+    \[ h_0=0.5,\quad h_1=1.333333-2=-0.666667 \]
+    \[ \delta_0=\frac{5-0.875}{0.5}=8.25,\qquad \delta_1=\frac{0.037037-5}{-0.666667}=7.444444 \]
+    \[ d=\frac{7.444444-8.25}{-0.666667+0.5}=4.833333,\quad b=7.444444+(-0.666667)(4.833333)=4.222222,\quad c=0.037037 \]
+    \[ D=4.222222^2-4(4.833333)(0.037037)=17.111111,\qquad \sqrt{D}=4.136557 \]
+    <p>\( b+\sqrt{D}=8.358779 \) (mayor módulo) y \( b-\sqrt{D}=0.085665 \). Se elige <strong>8.358779</strong>.</p>
+    \[ x_3=1.333333-\frac{2(0.037037)}{8.358779}=1.333333-0.008862=1.324472 \]
+    <p>\( E=0.008862\ge 0.0001 \) → continuar. Nuevos puntos: \( x_0=2,\ x_1=1.333333,\ x_2=1.324472 \).</p>
+  </article>
+
+  <article class="bloque" id="m5-tabla">
+    <h4>Resumen de todas las iteraciones</h4>
+    <div class="tabla-responsive">
+      <table class="tabla-iteraciones">
+        <thead>
+          <tr>
+            <th>Iter.</th><th>\( x_0 \)</th><th>\( x_1 \)</th><th>\( x_2 \)</th><th>\( h_0 \)</th><th>\( h_1 \)</th>
+            <th>\( \delta_0 \)</th><th>\( \delta_1 \)</th><th>\( a \)</th><th>\( b \)</th><th>\( c \)</th><th>\( D \)</th>
+            <th>Denominador</th><th>\( x_3 \)</th><th>\( f(x_3) \)</th><th>Error</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>1</td><td>1.5</td><td>2</td><td>0.5</td><td>0.5</td><td>3.75</td><td>8.25</td><td>4.5</td><td>10.5</td><td>5</td><td>20.25</td><td>15</td><td>1.333333</td><td>0.037037</td><td>0.666667</td></tr>
+          <tr><td>2</td><td>1.5</td><td>2</td><td>1.333333</td><td>0.5</td><td>−0.666667</td><td>8.25</td><td>7.444444</td><td>4.833333</td><td>4.222222</td><td>0.037037</td><td>17.111111</td><td>8.358780</td><td>1.324472</td><td>−0.001051</td><td>0.008862</td></tr>
+          <tr><td>3</td><td>2</td><td>1.333333</td><td>1.324472</td><td>−0.666667</td><td>−0.008862</td><td>7.444444</td><td>4.297965</td><td>4.657805</td><td>4.256688</td><td>−0.001051</td><td>18.138969</td><td>8.515675</td><td>1.324718</td><td>1.436×10⁻⁶</td><td>2.468×10⁻⁴</td></tr>
+          <tr><td>4</td><td>1.333333</td><td>1.324472</td><td>1.324718</td><td>−0.008862</td><td>0.000247</td><td>4.297965</td><td>4.263655</td><td>3.982523</td><td>4.264638</td><td>1.436×10⁻⁶</td><td>18.187113</td><td>8.529273</td><td><strong>1.324718</strong></td><td>7.15×10⁻¹³</td><td><strong>3.37×10⁻⁷</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>En la iteración 4 el error \( 3.37\times10^{-7} \) es menor que la tolerancia \( 10^{-4} \): el método se detiene.</p>
+    <p class="resultado-final"><strong>Resultado:</strong> \( x\approx 1.3247 \) (más cifras: \( 1.3247179572 \)), con \( f(x)\approx 7\times10^{-13} \). Se necesitaron <strong>4 iteraciones</strong>.</p>
+  </article>
+
+  <article class="bloque" id="m5-convergencia">
+    <h4>Observando la convergencia</h4>
+    <p>La raíz real de \( x^3-x-1=0 \) vale \( 1.3247179572\ldots \) La distancia de cada aproximación a esa raíz se reduce muy rápido:</p>
+    <div class="tabla-responsive">
+      <table class="tabla-convergencia">
+        <thead><tr><th>Aproximación \( x_3 \)</th><th>Valor</th><th>Distancia a la raíz (≈)</th></tr></thead>
+        <tbody>
+          <tr><td>Iteración 1</td><td>1.333333</td><td>\( 8.6\times10^{-3} \)</td></tr>
+          <tr><td>Iteración 2</td><td>1.324472</td><td>\( 2.5\times10^{-4} \)</td></tr>
+          <tr><td>Iteración 3</td><td>1.324718</td><td>\( 3.4\times10^{-7} \)</td></tr>
+          <tr><td>Iteración 4</td><td>1.3247179572</td><td>\( \approx 10^{-13} \)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Del paso 2 al 3 el error pasa de \( 10^{-4} \) a \( 10^{-7} \) y luego a \( 10^{-13} \): el número de cifras correctas crece más rápido que en la secante, aunque menos que en un método cuadrático puro. Es el comportamiento típico de un orden \( \approx 1.84 \).</p>
+    <p class="nota">Dato curioso: \( 1.3247\ldots \) es el llamado <em>número plástico</em>, la única raíz real de \( x^3=x+1 \). Las otras dos raíces son complejas conjugadas, y Müller podría encontrarlas partiendo de puntos complejos.</p>
+  </article>
+
+  <figure class="ilustracion" data-ilustracion="convergencia-ejemplo">
+<svg viewBox="0 0 480 245" role="img" aria-label="Gráfica de x³−x−1 con los puntos iniciales y las aproximaciones x₃ acercándose a la raíz" xmlns="http://www.w3.org/2000/svg"><line x1="30" y1="177.0" x2="460" y2="177.0" stroke="#94a3b8"/><polyline points="30.0,201.5 35.2,201.2 40.5,200.8 45.8,200.4 51.0,200.0 56.3,199.6 61.5,199.1 66.7,198.6 72.0,198.1 77.2,197.5 82.5,196.9 87.8,196.3 93.0,195.6 98.3,194.9 103.5,194.2 108.7,193.4 114.0,192.6 119.3,191.7 124.5,190.8 129.8,189.9 135.0,189.0 140.2,187.9 145.5,186.9 150.8,185.8 156.0,184.7 161.2,183.5 166.5,182.3 171.8,181.0 177.0,179.7 182.3,178.4 187.5,177.0 192.8,175.5 198.0,174.0 203.2,172.5 208.5,170.9 213.8,169.3 219.0,167.6 224.2,165.9 229.5,164.1 234.7,162.3 240.0,160.4 245.3,158.4 250.5,156.4 255.8,154.4 261.0,152.3 266.2,150.1 271.5,147.9 276.8,145.7 282.0,143.4 287.2,141.0 292.5,138.5 297.8,136.0 303.0,133.5 308.3,130.9 313.5,128.2 318.8,125.5 324.0,122.7 329.2,119.8 334.5,116.9 339.8,113.9 345.0,110.8 350.2,107.7 355.5,104.6 360.7,101.3 366.0,98.0 371.2,94.6 376.5,91.2 381.7,87.7 387.0,84.1 392.3,80.4 397.5,76.7 402.8,72.9 408.0,69.0 413.2,65.1 418.5,61.1 423.7,57.0 429.0,52.9 434.2,48.6 439.5,44.3 444.8,39.9 450.0,35.5" fill="none" stroke="#22d3ee" stroke-width="3"/><circle cx="90.0" cy="196.0" r="5" fill="#8b5cf6"/><text x="98.0" y="190.0" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="11">(1, -1)</text><circle cx="240.0" cy="160.4" r="5" fill="#8b5cf6"/><text x="248.0" y="154.4" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="11">(1.5, 0.875)</text><circle cx="390.0" cy="82.0" r="5" fill="#8b5cf6"/><text x="398.0" y="76.0" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="11">(2, 5)</text><circle cx="190.0" cy="177.0" r="4" fill="#34d399"/><circle cx="187.4" cy="177.0" r="4" fill="#34d399"/><circle cx="187.4" cy="177.0" r="4" fill="#34d399"/><circle cx="187.4" cy="177.0" r="4" fill="#34d399"/><text x="173.4" y="199.0" fill="#cbd5e1" font-family="Inter,sans-serif" font-size="11">x₃: 1.3333 → 1.3245 → 1.3247 → 1.3247</text></svg>
+<figcaption>Convergencia del ejemplo f(x) = x³ − x − 1 hacia 1.3247. En el laboratorio se verá la gráfica interactiva.</figcaption>
+</figure>
+
+  <section class="comprension" data-modulo="5" data-correcta="b">
+    <h4>Pregunta de comprensión</h4>
+    <p>En la iteración 1 del ejemplo se obtuvo \( b+\sqrt{D}=15 \) y \( b-\sqrt{D}=6 \). ¿Cuál se usó y cuál fue \( x_3 \)?</p>
+    <ul class="opciones">
+      <li data-opcion="a">Se usó 6 y se obtuvo \( x_3=2-10/6\approx 0.333 \).</li>
+      <li data-opcion="b">Se usó 15 y se obtuvo \( x_3=2-10/15\approx 1.3333 \).</li>
+      <li data-opcion="c">Se usó 15 y se obtuvo \( x_3=2+10/15\approx 2.667 \).</li>
+      <li data-opcion="d">Se usó la suma de ambos, 21, y se obtuvo \( x_3\approx 1.524 \).</li>
+    </ul>
+    <div class="retro retro-ok">¡Correcto! Se elige el denominador de mayor magnitud (15) y \( x_3=2-\dfrac{2\cdot5}{15}=1.3333 \), ya muy cerca de la raíz 1.3247.</div>
+    <div class="retro retro-error">Recuerda: el denominador es el de <em>mayor</em> magnitud (15) y la fórmula resta: \( x_3=x_2-\dfrac{2c}{\text{den}}=2-\dfrac{10}{15}\approx1.3333 \).</div>
+  </section>
+</section>
+
+      </section>
+
+      <!-- ============ 3. LABORATORIO (espacio preparado para Peralta · Etapa 3) ============ -->
+      <section class="seccion" id="laboratorio">
+        <div class="sec-head"><div class="eyebrow">Sección 03</div><h2>Laboratorio matemático</h2><p class="muted">Calculadora interactiva del método de Müller.</p></div>
+        <div class="card-x" id="lab-config">
+          <div class="lab-config">
+            <div class="field field-expression"><label for="expression">FUNCIÓN f(x)</label><input id="expression" class="form-control" value="x^3-x-1" spellcheck="false"><small class="muted">+, −, ×, ÷, ^, paréntesis, sin, cos, tan, exp, log, sqrt, pi, e</small></div>
+            <div class="field"><label for="x0">x₀</label><input id="x0" class="form-control" type="number" step="any" value="1"></div>
+            <div class="field"><label for="x1">x₁</label><input id="x1" class="form-control" type="number" step="any" value="1.5"></div>
+            <div class="field"><label for="x2">x₂</label><input id="x2" class="form-control" type="number" step="any" value="2"></div>
+            <div class="field"><label for="tolerance">TOLERANCIA</label><input id="tolerance" class="form-control" type="number" step="any" value="0.0001"></div>
+            <div class="field"><label for="maxIterations">MÁX. ITERACIONES</label><input id="maxIterations" class="form-control" type="number" min="1" step="1" value="50"></div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;align-items:end">
+            <button class="btn-x" id="calculateBtn"><i data-lucide="play"></i>Calcular</button>
+            <button class="btn-x alt" id="nextBtn">Siguiente iteración</button>
+            <button class="btn-x alt" id="resetBtn"><i data-lucide="rotate-ccw"></i>Reiniciar</button>
+            <div class="field" style="min-width:170px"><label for="exampleSelect">EJEMPLO</label><select id="exampleSelect" class="form-select"><option value="one">x³ − x − 1</option><option value="two">x² − 2</option><option value="three">x³ + 1</option></select></div><button class="btn-x alt" id="loadExampleBtn">Cargar ejemplo</button>
+          </div>
+          <div id="message" class="nota" role="status" style="margin-bottom:0;margin-top:16px">Configura los valores y pulsa Calcular, o avanza paso a paso con Siguiente iteración.</div>
+        </div>
+        <div class="grid-4" style="margin:18px 0" aria-live="polite">
+          <div class="card-x metric"><span>ESTADO</span><strong id="metricStatus">Pendiente</strong></div>
+          <div class="card-x metric"><span>ITERACIONES</span><strong id="metricIterations">0</strong></div>
+          <div class="card-x metric"><span>ÚLTIMA APROXIMACIÓN</span><strong id="metricRoot">—</strong></div>
+          <div class="card-x metric"><span>ERROR</span><strong id="metricError">—</strong></div>
+        </div>
+        <div class="grid-2">
+          <div class="card-x"><h4>Gráfica de la función</h4><div class="chart-wrap" id="chartContainer"><canvas id="functionChart" aria-label="Gráfica de f(x) y aproximaciones"></canvas><div class="placeholder-msg" id="chartPlaceholder"><i data-lucide="chart-line"></i><br>Aquí se dibujará la gráfica con Chart.js<br>(js/graph.js)</div></div></div>
+          <div class="card-x"><h4>Detalle de la iteración</h4><div id="iterationDetails" class="placeholder-msg" style="border:1px dashed #2a3f68;border-radius:14px;min-height:340px;display:grid;place-items:center">Los cálculos intermedios (h₀, h₁, δ₀, δ₁, a, b, c, D) aparecerán aquí.</div></div>
+        </div>
+        <div class="card-x" style="margin-top:18px"><div style="display:flex;justify-content:space-between;align-items:center"><h4>Tabla de iteraciones</h4><span class="tag" id="rowCount">0 REGISTROS</span></div>
+          <div class="table-responsive"><table class="table results-table"><thead><tr><th>Iteración</th><th>x₀</th><th>x₁</th><th>x₂</th><th>x₃</th><th>f(x₃)</th><th>Error</th></tr></thead>
+          <tbody id="resultsBody"><tr><td colspan="7" class="text-center muted">Sin resultados todavía.</td></tr></tbody></table></div></div>
+      </section>
+
+      <!-- ============ 4. ZONA DE JUEGOS (espacios preparados para Said · Etapa 4) ============ -->
+      <section class="seccion" id="juegos">
+        <div class="sec-head"><div class="eyebrow">Sección 04</div><h2>Zona de juegos</h2><p class="muted">Tres juegos independientes.</p></div>
+        <div class="tabs">
+          <button class="tab-btn active" data-tab-group="juegos" data-tab-target="#game1">Ordena el algoritmo</button>
+          <button class="tab-btn" data-tab-group="juegos" data-tab-target="#game2">Detective matemático</button>
+          <button class="tab-btn" data-tab-group="juegos" data-tab-target="#game3">Cazadores de raíces</button>
+        </div>
+        <div class="tab-pane active" id="game1" data-pane-group="juegos"><div class="card-x game-card">
+          <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><h3>Juego 1 · Ordena el algoritmo</h3><span class="pts">MÁX. 100 PUNTOS</span></div>
+          <p class="muted">Ordena diez pasos del método con los botones subir y bajar.</p>
+          <ul class="rule-list"><li><b>Objetivo:</b> dejar los 10 pasos en el orden correcto.</li><li><b>Tiempo:</b> 90 segundos.</li><li><b>Puntuación:</b> 10 puntos por cada posición correcta.</li></ul>
+          <div class="game-area" id="game1-container"><div class="placeholder-msg"><i data-lucide="list-ordered"></i><br>Contenedor del juego 1<br></div></div>
+          <div style="display:flex;gap:10px"><button class="btn-x" id="game1-start">Comenzar</button><button class="btn-x alt" id="game1-retry" disabled>Repetir</button><span class="tag" id="game1-timer">90 s</span></div>
+        </div></div>
+        <div class="tab-pane" id="game2" data-pane-group="juegos"><div class="card-x game-card">
+          <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><h3>Juego 2 · Detective matemático</h3><span class="pts">MÁX. 100 PUNTOS</span></div>
+          <p class="muted">Encuentra el error en procedimientos de Müller.</p>
+          <ul class="rule-list"><li><b>Objetivo:</b> señalar el error entre cuatro opciones en 5 rondas.</li><li><b>Tiempo:</b> 20 segundos por pregunta.</li><li><b>Puntuación:</b> 20 puntos por respuesta correcta.</li></ul>
+          <div class="game-area" id="game2-container"><div class="placeholder-msg"><i data-lucide="search"></i><br>Contenedor del juego 2<br></div></div>
+          <div style="display:flex;gap:10px"><button class="btn-x" id="game2-start">Comenzar</button><button class="btn-x alt" id="game2-retry" disabled>Repetir</button><span class="tag" id="game2-timer">20 s</span></div>
+        </div></div>
+        <div class="tab-pane" id="game3" data-pane-group="juegos"><div class="card-x game-card">
+          <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><h3>Juego 3 · Cazadores de raíces</h3><span class="pts">MÁX. 300 PUNTOS</span></div>
+          <p class="muted">Calcula la siguiente aproximación de Müller en tres niveles.</p>
+          <ul class="rule-list"><li><b>Nivel 1:</b> f(x) = x³ − x − 1 · x₀=1, x₁=1.5, x₂=2.</li><li><b>Nivel 2:</b> f(x) = x² − 2 · x₀=0, x₁=1, x₂=2.</li><li><b>Nivel 3:</b> f(x) = x³ + 1 · x₀=−2, x₁=−1.5, x₂=−0.5.</li><li><b>Puntuación:</b> 100 por nivel · tolerancia de comparación 0.001.</li></ul>
+          <div class="game-area" id="game3-container"><div class="placeholder-msg"><i data-lucide="crosshair"></i><br>Contenedor del juego 3<br></div></div>
+          <div style="display:flex;gap:10px"><button class="btn-x" id="game3-start">Comenzar</button><button class="btn-x alt" id="game3-retry" disabled>Repetir</button></div>
+        </div></div>
+      </section>
+
+      <!-- ============ 5. DESAFÍOS (Said · Etapa 4) ============ -->
+      <section class="seccion" id="desafios">
+        <div class="sec-head"><div class="eyebrow">Sección 05</div><h2>Desafíos</h2><p class="muted">Cuatro misiones, 50 puntos cada una (máximo 200).</p></div>
+        <div class="grid-2" id="challenges-container">
+          <div class="card-x mision-card" id="mission1"><div class="ico"><i data-lucide="radar"></i></div><h4>Misión 1 · Reconocimiento</h4><p class="muted">Diferencias entre Müller, bisección y Newton-Raphson.</p><span class="pts">50 PUNTOS</span></div>
+          <div class="card-x mision-card" id="mission2"><div class="ico"><i data-lucide="layers"></i></div><h4>Misión 2 · Fundamento</h4><p class="muted">Importancia de las tres aproximaciones iniciales.</p><span class="pts">50 PUNTOS</span></div>
+          <div class="card-x mision-card" id="mission3"><div class="ico"><i data-lucide="sigma"></i></div><h4>Misión 3 · Interpretación</h4><p class="muted">Significado del discriminante.</p><span class="pts">50 PUNTOS</span></div>
+          <div class="card-x mision-card" id="mission4"><div class="ico"><i data-lucide="atom"></i></div><h4>Misión 4 · Aplicación</h4><p class="muted">Interpretación de raíces complejas.</p><span class="pts">50 PUNTOS</span></div>
+        </div>
+      </section>
+
+      <!-- ============ 6. EVALUACIÓN FINAL (Said · Etapa 4) ============ -->
+      <section class="seccion" id="evaluacion">
+        <div class="sec-head"><div class="eyebrow">Sección 06</div><h2>Evaluación final</h2><p class="muted">Diez preguntas, una a la vez, 10 puntos cada acierto.</p></div>
+        <div class="grid-2">
+          <div class="card-x"><div style="display:flex;justify-content:space-between"><span class="tag" id="quizProgress">PREGUNTA 0 DE 10</span><span class="muted" id="quizScore">0 / 100</span></div>
+            <div class="game-area" id="quiz-container" style="margin-top:16px;min-height:260px"><div class="placeholder-msg"><i data-lucide="clipboard-list"></i><br>Contenedor de la evaluación<br></div></div>
+            <div style="margin-top:14px"><button class="btn-x" id="quizStart">Comenzar evaluación</button></div></div>
+          <div class="card-x"><div class="eyebrow">CLASIFICACIÓN</div><ul class="points-list" style="margin-top:10px"><li>90 – 100<b>Experto en Müller</b></li><li>70 – 89<b>Dominio avanzado</b></li><li>50 – 69<b>Aprendiz en progreso</b></li><li>0 – 49<b>Necesitas reforzar los fundamentos</b></li></ul>
+            <div id="quiz-results" class="placeholder-msg">El resultado final (puntaje, porcentaje, aciertos, errores y clasificación) se mostrará aquí.</div></div>
+        </div>
+      </section>
+
+      <!-- ============ 7. CRÉDITOS ============ -->
+      <section class="seccion" id="creditos">
+        <div class="sec-head"><div class="eyebrow">Sección 07</div><h2>Créditos del equipo</h2></div>
+        <div class="grid-4">
+          <div class="card-x team-card"><div class="avatar">V</div><h3>VALERY</h3><p class="muted">Investigación y contenido académico</p></div>
+          <div class="card-x team-card"><div class="avatar">D</div><h3>DANILO</h3><p class="muted">Diseño y estructura visual</p></div>
+          <div class="card-x team-card"><div class="avatar">P</div><h3>PERALTA</h3><p class="muted">Programación y lógica matemática</p></div>
+          <div class="card-x team-card"><div class="avatar">S</div><h3>SAITH</h3><p class="muted">Juegos, evaluación e integración</p></div>
+        </div>
+        <p class="final-quote">“Aprender matemáticas también puede ser una experiencia interactiva. Gracias por participar en Müller Challenge”.</p>
+      </section>
+      <div class="footer-x">MÜLLER CHALLENGE · Descubre, calcula y conquista las raíces</div>
+    </main>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<script src="js/navigation.js"></script>
+<script src="js/math-parser.js"></script>
+<script src="js/muller.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/games.js"></script>
+<script src="js/challenges.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

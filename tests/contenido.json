@@ -1,0 +1,305 @@
+{
+  "_meta": {
+    "autor": "Valery",
+    "etapa": 1,
+    "descripcion": "Contenido académico (textos, respuestas correctas y explicaciones) para juegos, desafíos y evaluación final. No contiene lógica ni puntuación funcional; Said lo consume desde games.js, challenges.js y quiz.js.",
+    "formato_matematico": "Las fórmulas usan delimitadores MathJax \\( ... \\). Llamar a MathJax.typesetPromise() tras insertarlas en el DOM.",
+    "indices": "En las preguntas de opción múltiple 'correcta' es el índice (base 0) dentro de 'opciones'. Se recomienda barajar las opciones al mostrarlas y comparar por 'correcta' antes de barajar.",
+    "valores_calculados": "Todos los números de los juegos fueron calculados con el algoritmo real de Müller en doble precisión."
+  },
+
+  "juego1_ordena_algoritmo": {
+    "titulo": "Ordena el algoritmo",
+    "instrucciones": "Ordena los diez pasos del método de Müller usando los botones de subir y bajar.",
+    "orden_correcto": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "pasos": [
+      { "id": 1, "texto": "Seleccionar tres aproximaciones iniciales distintas, la tolerancia y el máximo de iteraciones.", "explicacion": "Todo el método parte de tres puntos distintos: son los que determinarán la primera parábola. También se fijan los criterios de parada." },
+      { "id": 2, "texto": "Evaluar la función en x₀, x₁ y x₂.", "explicacion": "Se necesitan f(x₀), f(x₁) y f(x₂) para conocer los tres puntos de la gráfica por los que pasará la parábola." },
+      { "id": 3, "texto": "Calcular h₀ = x₁ − x₀ y h₁ = x₂ − x₁.", "explicacion": "Son las distancias entre puntos consecutivos; aparecen en los denominadores de las diferencias divididas." },
+      { "id": 4, "texto": "Calcular las diferencias divididas δ₀ y δ₁.", "explicacion": "δ₀ y δ₁ son las pendientes de las dos rectas secantes. Su diferencia indicará la curvatura de la parábola." },
+      { "id": 5, "texto": "Obtener los coeficientes cuadráticos a, b y c.", "explicacion": "Con d = (δ₁ − δ₀)/(h₁ + h₀) se calcula a = d, b = δ₁ + h₁·d y c = f(x₂): quedan definidos los tres coeficientes de la parábola." },
+      { "id": 6, "texto": "Calcular el discriminante D = b² − 4ac.", "explicacion": "D indica si la parábola corta el eje x (D ≥ 0) o si sus raíces son complejas (D < 0)." },
+      { "id": 7, "texto": "Seleccionar el denominador estable (el de mayor magnitud entre b + √D y b − √D).", "explicacion": "Elegir el denominador de mayor módulo evita la cancelación numérica y escoge la raíz de la parábola más cercana a x₂." },
+      { "id": 8, "texto": "Calcular la nueva aproximación x₃ = x₂ − 2c / denominador.", "explicacion": "Es la raíz de la parábola elegida; se obtiene con la fórmula racionalizada de Müller." },
+      { "id": 9, "texto": "Evaluar el error |x₃ − x₂| y compararlo con la tolerancia.", "explicacion": "Si el error es menor que la tolerancia, el método converge y se detiene; si no, continúa." },
+      { "id": 10, "texto": "Actualizar los puntos (x₀←x₁, x₁←x₂, x₂←x₃) y repetir.", "explicacion": "Se descarta el punto más antiguo y se vuelve al paso 2 con la nueva terna de puntos." }
+    ],
+    "nota_para_said": "Mostrar los pasos barajados (evitar que la mezcla inicial coincida con el orden correcto). Cada posición correcta vale 10 puntos. Al terminar, listar 'orden_correcto' con 'explicacion'."
+  },
+
+  "juego2_detective": {
+    "titulo": "Detective matemático",
+    "instrucciones": "Cada ronda muestra un procedimiento de Müller con una sola línea errónea. Selecciona la línea que contiene el error.",
+    "contexto_comun": "Todas las rondas usan f(x) = x³ − x − 1 con x₀ = 1, x₁ = 1.5, x₂ = 2 (iteración 1), con f(1) = −1, f(1.5) = 0.875 y f(2) = 5.",
+    "rondas": [
+      {
+        "id": 1,
+        "tema": "Diferencias divididas",
+        "enunciado": "Se calculan h₀, h₁, δ₀, δ₁ y d. ¿En qué línea está el error?",
+        "opciones": [
+          "h₀ = x₁ − x₀ = 0.5  y  h₁ = x₂ − x₁ = 0.5",
+          "δ₀ = (f(x₁) − f(x₀)) / h₀ = (0.875 − (−1)) / 0.5 = 3.75",
+          "δ₁ = (f(x₁) − f(x₂)) / h₁ = (0.875 − 5) / 0.5 = −8.25",
+          "d = (δ₁ − δ₀) / (h₁ + h₀) = (−8.25 − 3.75) / 1 = −12"
+        ],
+        "correcta": 2,
+        "explicacion": "δ₁ debe ser (f(x₂) − f(x₁)) / h₁ = (5 − 0.875) / 0.5 = 8.25. La diferencia dividida siempre resta el valor del punto de la izquierda al del punto de la derecha; invertir el orden cambia el signo de la pendiente."
+      },
+      {
+        "id": 2,
+        "tema": "Coeficientes",
+        "enunciado": "Se calculan los coeficientes de la parábola y el discriminante. ¿En qué línea está el error?",
+        "opciones": [
+          "a = d = 4.5",
+          "b = δ₁ + h₁·d = 8.25 + 0.5·4.5 = 10.5",
+          "c = f(x₀) = −1",
+          "D = b² − 4ac = 10.5² − 4·4.5·(−1) = 128.25"
+        ],
+        "correcta": 2,
+        "explicacion": "El término independiente es c = f(x₂) = 5, porque la parábola está centrada en x₂ (el punto más reciente). Usar f(x₀) cambia todos los resultados posteriores."
+      },
+      {
+        "id": 3,
+        "tema": "Discriminante",
+        "enunciado": "Con a = 4.5, b = 10.5 y c = 5 se calcula el discriminante. ¿En qué línea está el error?",
+        "opciones": [
+          "Coeficientes: a = 4.5, b = 10.5, c = 5",
+          "D = b² + 4ac = 110.25 + 90 = 200.25",
+          "√D = √200.25 ≈ 14.151",
+          "b + √D ≈ 24.651"
+        ],
+        "correcta": 1,
+        "explicacion": "El discriminante es D = b² − 4ac = 110.25 − 90 = 20.25 (con raíz exacta √D = 4.5). Sumar 4ac en lugar de restarlo es el error clásico de signo."
+      },
+      {
+        "id": 4,
+        "tema": "Selección del denominador",
+        "enunciado": "Con b = 10.5 y √D = 4.5 se calcula x₃. ¿En qué línea está el error?",
+        "opciones": [
+          "√D = √20.25 = 4.5",
+          "Denominadores posibles: b + √D = 15  y  b − √D = 6",
+          "Se elige b − √D = 6 por ser el de menor magnitud, para obtener un paso mayor",
+          "x₃ = x₂ − 2c / 6 = 2 − 10/6 ≈ 0.3333"
+        ],
+        "correcta": 2,
+        "explicacion": "Debe elegirse el denominador de MAYOR magnitud absoluta (15), para evitar la cancelación numérica y quedarse con la raíz de la parábola más cercana a x₂. Con 15 se obtiene x₃ = 2 − 10/15 ≈ 1.3333, ya muy cerca de la raíz 1.3247."
+      },
+      {
+        "id": 5,
+        "tema": "Actualización de aproximaciones",
+        "enunciado": "Se termina la iteración 1 y se prepara la siguiente. ¿En qué línea está el error?",
+        "opciones": [
+          "x₃ = x₂ − 2c / 15 = 2 − 10/15 = 1.3333",
+          "Error = |x₃ − x₂| = |1.3333 − 2| = 0.6667, mayor que la tolerancia 0.0001",
+          "f(x₃) = 1.3333³ − 1.3333 − 1 ≈ 0.0370",
+          "Nueva terna: x₀ ← x₀ = 1, x₁ ← x₂ = 2, x₂ ← x₃ = 1.3333 (se conserva x₀)"
+        ],
+        "correcta": 3,
+        "explicacion": "Se descarta el punto más antiguo, no se conserva: x₀ ← x₁ = 1.5, x₁ ← x₂ = 2, x₂ ← x₃ = 1.3333. La nueva terna debe ser (1.5, 2, 1.3333)."
+      }
+    ],
+    "nota_para_said": "Cada ronda dura 20 s y vale 20 puntos. Barajar las opciones o su posición correcta; usar 'correcta' para validar."
+  },
+
+  "juego3_cazadores_de_raices": {
+    "titulo": "Cazadores de raíces",
+    "instrucciones": "Calcula la siguiente aproximación x₃ (primera iteración) del método de Müller. El sistema la compara con el resultado real del algoritmo (tolerancia de comparación 0.001).",
+    "nota_para_said": "NO duplicar el algoritmo: la respuesta esperada debe obtenerse llamando a la función de Peralta (js/muller.js). Los valores de abajo son los de referencia académica con los que debe coincidir. La respuesta del estudiante es correcta si |respuesta − x3_referencia| < 0.001.",
+    "niveles": [
+      {
+        "nivel": 1,
+        "funcion": "x^3 - x - 1",
+        "funcion_mathjax": "f(x)=x^3-x-1",
+        "x0": 1, "x1": 1.5, "x2": 2,
+        "valores_intermedios": { "f0": -1, "f1": 0.875, "f2": 5, "h0": 0.5, "h1": 0.5, "delta0": 3.75, "delta1": 8.25, "a": 4.5, "b": 10.5, "c": 5, "D": 20.25, "denominador": 15 },
+        "x3_referencia": 1.333333,
+        "pista": "Calcula primero δ₀ y δ₁; luego a, b y c; después D = b² − 4ac.",
+        "retroalimentacion_correcta": "¡Correcto! x₃ = 2 − 10/15 ≈ 1.3333. La raíz real de la ecuación es 1.3247.",
+        "errores_frecuentes": [
+          "Usar b − √D = 6 en lugar de b + √D = 15 daría 0.3333: se debe elegir el denominador de mayor magnitud."
+        ]
+      },
+      {
+        "nivel": 2,
+        "funcion": "x^2 - 2",
+        "funcion_mathjax": "f(x)=x^2-2",
+        "x0": 0, "x1": 1, "x2": 2,
+        "valores_intermedios": { "f0": -2, "f1": -1, "f2": 2, "h0": 1, "h1": 1, "delta0": 1, "delta1": 3, "a": 1, "b": 4, "c": 2, "D": 8, "denominador": 6.828427 },
+        "x3_referencia": 1.414214,
+        "pista": "La función ya es una parábola: ¿qué crees que ocurre cuando la parábola de Müller coincide con f?",
+        "retroalimentacion_correcta": "¡Correcto! x₃ = 2 − 4/6.8284 ≈ 1.4142 = √2. Como f es un polinomio de grado 2, la parábola interpoladora coincide con f y el método encuentra la raíz exacta en un solo paso.",
+        "errores_frecuentes": [
+          "Con b − √D = 1.1716 se obtendría x₃ ≈ −1.4142 (la otra raíz de la parábola, más lejana de x₂)."
+        ]
+      },
+      {
+        "nivel": 3,
+        "funcion": "x^3 + 1",
+        "funcion_mathjax": "f(x)=x^3+1",
+        "x0": -2, "x1": -1.5, "x2": -0.5,
+        "valores_intermedios": { "f0": -7, "f1": -2.375, "f2": 0.875, "h0": 0.5, "h1": 1, "delta0": 9.25, "delta1": 3.25, "a": -4, "b": -0.75, "c": 0.875, "D": 14.5625, "denominador": -4.566084 },
+        "x3_referencia": -0.116739,
+        "pista": "Aquí b es negativo: compara los módulos de b + √D y b − √D antes de elegir.",
+        "retroalimentacion_correcta": "¡Correcto! Como b < 0, el denominador de mayor magnitud es b − √D = −4.5661 y x₃ = −0.5 − 1.75/(−4.5661) ≈ −0.1167.",
+        "errores_frecuentes": [
+          "Elegir b + √D = 3.0661 da x₃ ≈ −1.0707 (cercano a la raíz −1 por casualidad, pero no es lo que prescribe el método estable)."
+        ],
+        "dato_didactico": "Este nivel muestra que el método estable no siempre da el paso 'más cercano a la raíz verdadera': da la raíz de la parábola más cercana a x₂. Con estos puntos el método tarda 9 iteraciones en converger a −1."
+      }
+    ],
+    "valores_de_convergencia_completa_referencia": {
+      "nivel1": { "iteraciones": 4, "raiz": 1.3247179572 },
+      "nivel2": { "iteraciones": 2, "raiz": 1.4142135624 },
+      "nivel3": { "iteraciones": 9, "raiz": -1.0 }
+    }
+  },
+
+  "desafios": {
+    "titulo": "Desafíos",
+    "misiones": [
+      {
+        "id": 1,
+        "nombre": "Reconocimiento",
+        "tema": "Müller, bisección y Newton-Raphson",
+        "pregunta": "¿Cuál de las siguientes afirmaciones distingue correctamente a los tres métodos?",
+        "opciones": [
+          "Müller aproxima la función con una parábola por tres puntos y no necesita derivada; Newton-Raphson usa f′(x); la bisección necesita un intervalo con cambio de signo.",
+          "Newton-Raphson no necesita derivada, mientras que Müller sí la necesita para construir la parábola.",
+          "La bisección converge más rápido que Müller porque siempre divide el intervalo a la mitad.",
+          "Los tres métodos parten exactamente de dos aproximaciones iniciales."
+        ],
+        "correcta": 0,
+        "explicacion": "Müller: 3 puntos, parábola, sin derivada, orden ≈ 1.84. Newton-Raphson: 1 punto, recta tangente, requiere f′, orden 2. Bisección: intervalo con cambio de signo, convergencia lineal (orden 1) pero garantizada."
+      },
+      {
+        "id": 2,
+        "nombre": "Fundamento",
+        "tema": "Importancia de las tres aproximaciones iniciales",
+        "pregunta": "¿Por qué son necesarias tres aproximaciones iniciales distintas en el método de Müller?",
+        "opciones": [
+          "Porque la ecuación a resolver debe ser de tercer grado.",
+          "Porque una parábola tiene tres coeficientes (a, b, c) y tres puntos distintos la determinan de forma única.",
+          "Porque con tres puntos el método garantiza la convergencia.",
+          "Porque así se calcula el promedio de los tres valores y se reduce el error."
+        ],
+        "correcta": 1,
+        "explicacion": "El polinomio cuadrático tiene tres incógnitas y se necesitan tres condiciones independientes. Si dos puntos coinciden (h₀ = 0 o h₁ = 0), el sistema no tiene solución única y el método falla."
+      },
+      {
+        "id": 3,
+        "nombre": "Interpretación",
+        "tema": "Significado del discriminante",
+        "pregunta": "En una iteración con función real y puntos reales se obtiene D = b² − 4ac < 0. ¿Qué significa?",
+        "opciones": [
+          "El método ha fallado y debe detenerse inmediatamente.",
+          "La función no tiene ninguna raíz.",
+          "La parábola no corta el eje x: sus raíces son complejas conjugadas y la nueva aproximación x₃ será un número complejo.",
+          "El coeficiente a es igual a cero."
+        ],
+        "correcta": 2,
+        "explicacion": "D < 0 indica que la parábola interpoladora no corta el eje x. Müller no se detiene: calcula √D como imaginario y obtiene x₃ complejo. Esto permite hallar raíces complejas, algo que bisección y Newton (con datos reales) no pueden."
+      },
+      {
+        "id": 4,
+        "nombre": "Aplicación",
+        "tema": "Interpretación de raíces complejas",
+        "pregunta": "Al aplicar Müller a f(x) = x² + 1 con x₀ = 0, x₁ = 1, x₂ = 2 se obtiene D = −4 y x₃ = i. ¿Cómo se interpreta este resultado?",
+        "opciones": [
+          "La función x² + 1 no tiene raíces, por lo que i no tiene significado.",
+          "El método dio un resultado erróneo, porque con datos reales debería obtenerse un número real.",
+          "x₃ = i es una raíz compleja exacta: f(i) = i² + 1 = 0; la otra raíz es −i (conjugada).",
+          "x₃ = i indica que el método divergió."
+        ],
+        "correcta": 2,
+        "explicacion": "Como f es cuadrática, la parábola de Müller coincide con f. Con a = 1, b = 4, c = 5 → D = −4, √D = 2i, denominador 4 + 2i y x₃ = 2 − 10/(4 + 2i) = i. La función real x² + 1 no corta el eje x, pero tiene raíces complejas conjugadas ±i."
+      }
+    ]
+  },
+
+  "evaluacion_final": {
+    "titulo": "Evaluación final",
+    "distribucion": { "conceptuales": 2, "caracteristicas": 2, "formulas_y_procedimiento": 3, "interpretacion": 2, "aplicaciones": 1 },
+    "preguntas": [
+      {
+        "id": 1, "categoria": "conceptual",
+        "pregunta": "¿Qué problema resuelve el método de Müller?",
+        "opciones": ["Calcular la integral definida de una función.", "Aproximar raíces de ecuaciones no lineales f(x) = 0.", "Resolver sistemas lineales de ecuaciones.", "Calcular la derivada numérica de una función."],
+        "correcta": 1,
+        "explicacion": "Müller es un método iterativo de búsqueda de raíces: encuentra valores de x tales que f(x) = 0."
+      },
+      {
+        "id": 2, "categoria": "conceptual",
+        "pregunta": "¿Con qué tipo de curva aproxima Müller la función en cada iteración?",
+        "opciones": ["Una recta tangente.", "Una parábola que pasa por tres puntos.", "Una recta secante por dos puntos.", "Una función exponencial."],
+        "correcta": 1,
+        "explicacion": "Usa un polinomio interpolador cuadrático (parábola) que pasa por (x₀,f(x₀)), (x₁,f(x₁)) y (x₂,f(x₂))."
+      },
+      {
+        "id": 3, "categoria": "caracteristicas",
+        "pregunta": "¿Cuántas aproximaciones iniciales necesita el método de Müller?",
+        "opciones": ["Una.", "Dos.", "Tres.", "Cuatro."],
+        "correcta": 2,
+        "explicacion": "Se necesitan tres, porque una parábola tiene tres coeficientes que deben determinarse."
+      },
+      {
+        "id": 4, "categoria": "caracteristicas",
+        "pregunta": "¿Cuál es el orden de convergencia aproximado del método de Müller?",
+        "opciones": ["1 (lineal).", "Aproximadamente 1.84 (superlineal).", "2 (cuadrática exacta).", "3 (cúbica)."],
+        "correcta": 1,
+        "explicacion": "Su orden es ≈ 1.84: mayor que el de la secante (≈ 1.618) y menor que el de Newton-Raphson (2)."
+      },
+      {
+        "id": 5, "categoria": "formulas",
+        "pregunta": "¿Cómo se calcula el coeficiente c de la parábola de Müller?",
+        "opciones": ["c = f(x₀)", "c = f(x₂)", "c = δ₁ + h₁·d", "c = b² − 4ac"],
+        "correcta": 1,
+        "explicacion": "La parábola está centrada en x₂, por eso c = p(x₂) = f(x₂)."
+      },
+      {
+        "id": 6, "categoria": "formulas",
+        "pregunta": "En x₃ = x₂ − 2c / (b ± √D), ¿qué denominador se debe elegir y por qué?",
+        "opciones": ["El de menor magnitud, para dar un paso más grande.", "Siempre b + √D, porque es positivo.", "El de mayor magnitud absoluta, para evitar la cancelación numérica.", "Siempre b − √D, porque aparece en la fórmula cuadrática."],
+        "correcta": 2,
+        "explicacion": "Elegir el denominador de mayor módulo evita restar cantidades casi iguales y selecciona la raíz de la parábola más cercana a x₂."
+      },
+      {
+        "id": 7, "categoria": "procedimiento",
+        "pregunta": "Después de calcular x₃ sin haber alcanzado la tolerancia, ¿cómo se actualizan los puntos?",
+        "opciones": ["x₀ ← x₀, x₁ ← x₁, x₂ ← x₃", "x₀ ← x₁, x₁ ← x₂, x₂ ← x₃", "x₀ ← x₃, x₁ ← x₀, x₂ ← x₁", "x₀ ← x₂, x₁ ← x₃, x₂ ← x₃"],
+        "correcta": 1,
+        "explicacion": "Se descarta el punto más antiguo y se desplazan los demás: x₀ ← x₁, x₁ ← x₂, x₂ ← x₃."
+      },
+      {
+        "id": 8, "categoria": "interpretacion",
+        "pregunta": "Si el discriminante D = b² − 4ac es negativo, ¿qué se interpreta?",
+        "opciones": ["La función no tiene raíces.", "Las raíces de la parábola son complejas y x₃ será complejo.", "El método converge inmediatamente.", "Hay una división por cero."],
+        "correcta": 1,
+        "explicacion": "D < 0 significa que la parábola no corta el eje x; √D es imaginario y la nueva aproximación es un número complejo."
+      },
+      {
+        "id": 9, "categoria": "interpretacion",
+        "pregunta": "Si |x₃ − x₂| es menor que la tolerancia, ¿qué se concluye?",
+        "opciones": ["Que el método diverge.", "Que se debe aumentar el número de iteraciones.", "Que el método converge y x₃ se acepta como raíz aproximada.", "Que la función no tiene raíz real."],
+        "correcta": 2,
+        "explicacion": "Un error menor que la tolerancia es el criterio de convergencia: x₃ se acepta como aproximación de la raíz."
+      },
+      {
+        "id": 10, "categoria": "aplicaciones",
+        "pregunta": "¿En cuál de estas situaciones destaca especialmente el método de Müller frente a Newton-Raphson o la bisección?",
+        "opciones": ["Cuando se necesita una convergencia garantizada con un intervalo que cambia de signo.", "Cuando la función es lineal.", "Cuando se buscan raíces complejas de un polinomio sin calcular derivadas.", "Cuando solo se dispone de una aproximación inicial."],
+        "correcta": 2,
+        "explicacion": "Müller no necesita derivadas y puede generar raíces complejas partiendo de datos reales, lo que lo hace ideal para polinomios con raíces complejas."
+      }
+    ],
+    "clasificacion": [
+      { "min": 90, "max": 100, "etiqueta": "Experto en Müller" },
+      { "min": 70, "max": 89, "etiqueta": "Dominio avanzado" },
+      { "min": 50, "max": 69, "etiqueta": "Aprendiz en progreso" },
+      { "min": 0, "max": 49, "etiqueta": "Necesitas reforzar los fundamentos" }
+    ]
+  },
+
+  "creditos": {
+    "texto_final": "Aprender matemáticas también puede ser una experiencia interactiva. Gracias por participar en Müller Challenge"
+  }
+}
