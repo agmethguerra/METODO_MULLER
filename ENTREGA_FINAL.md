@@ -1,6 +1,6 @@
-# MÜLLER CHALLENGE · Etapa 4 · Said — Paquete de transferencia final
+# MÜLLER CHALLENGE · Etapa 4 · Saith — Paquete de transferencia final
 
-**Entrega:** Said · **Etapa:** 4, Gamificación, evaluación e integración · **Estado:** versión final para exposición, pendiente de revisión visual en navegador.
+**Entrega:** Sath · **Etapa:** 4, Gamificación, evaluación e integración · **Estado:** versión final para exposición, pendiente de revisión visual en navegador.
 
 ## 1. Revisión de las etapas anteriores (hallazgos y correcciones)
 | # | Hallazgo | Acción |
@@ -18,7 +18,7 @@ Copiados sin cambios: `js/math-parser.js`, `js/graph.js`, `tests/tests.html`, `t
 ## 3. Funcionalidades
 - **Juego 1:** 10 pasos barajados (nunca ya ordenados), ▲/▼, 90 s, 10 pts por posición, muestra orden correcto con explicación, repetir.
 - **Juego 2:** 5 rondas, opciones barajadas, 20 s, 20 pts; sin respuesta = error.
-- **Juego 3:** 3 niveles, 100 pts c/u, tolerancia 0.001, **3 intentos** por nivel (decisión de Said; el documento no fija intentos). La respuesta esperada sale de `MullerMethod.createSession(...).calculateNext()`. Tras cada nivel, botón *Verificar en el laboratorio* (carga la función en el laboratorio con `MullerLab.load`).
+- **Juego 3:** 3 niveles, 100 pts c/u, tolerancia 0.001, **3 intentos** por nivel (decisión de Saith; el documento no fija intentos). La respuesta esperada sale de `MullerMethod.createSession(...).calculateNext()`. Tras cada nivel, botón *Verificar en el laboratorio* (carga la función en el laboratorio con `MullerLab.load`).
 - **Desafíos:** 4 misiones, 50 pts, explicación, reintentar.
 - **Evaluación:** 10 preguntas una a la vez con retroalimentación; resultado con puntaje /100, % de aciertos, correctas, incorrectas y clasificación.
 - **Puntuación/persistencia:** mejor puntuación por actividad en `localStorage` (clave `muller-challenge:v1`, con respaldo en memoria si el navegador lo bloquea). HUD, barra lateral y panel *Tu progreso* en Inicio (puntos, % y actividades completadas, 10 en total). Reinicio con confirmación.
